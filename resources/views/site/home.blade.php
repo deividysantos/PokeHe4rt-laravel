@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-    <a href="{{ route('trainer.index') }}">PokeHe4rt</a>
+    <a class="homeBtn" href="{{ route('trainer.index') }}">PokeHe4rt</a>
 </header>
     <div class="container">
         @yield('content')

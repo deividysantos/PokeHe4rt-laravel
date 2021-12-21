@@ -10,6 +10,7 @@ class TrainerPokemon extends Model
     protected $table = 'trainer_pokemon';
 
     protected $fillable = [
+        'id',
         'trainer_id',
         'pokemon_id'
     ];

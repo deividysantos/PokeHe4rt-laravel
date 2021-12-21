@@ -20,6 +20,13 @@
         <div class="pokemonCaptured">
             <img src="{{ $pokemon->image_url }}" alt="image of {{ $pokemon->name }}">
             <p>{{ $pokemon->name }}</p>
+            <form action="{{route('trainer.drop')}}" method="POST">
+                @csrf
+                <input type="hidden" name="pokemon_id" value="{{ $pokemon->id }}">
+                <input type="hidden" name="trainer_id" value="{{ $trainer->id }}">
+                <input type="submit" value="drop">
+            </form>
+
         </div>
     @endforeach
 </div>

@@ -14,6 +14,8 @@ class CreateTrainerPokemonTable extends Migration
     public function up()
     {
         Schema::create('trainer_pokemon', function (Blueprint $table) {
+            $table->id();
+
             $table->unsignedBigInteger('trainer_id');
             $table->unsignedBigInteger('pokemon_id');
 

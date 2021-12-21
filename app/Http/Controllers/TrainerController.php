@@ -27,7 +27,7 @@ class TrainerController extends Controller
     {
         $trainers = $this->trainerService->getAll();
 
-        
+
 
         return view('trainer.index', compact(['trainers']));
     }
@@ -92,5 +92,17 @@ class TrainerController extends Controller
         $this->trainerPokemonService->create($payload);
 
         return redirect()->route('trainer.show', $request['idTrainer']);
+    }
+
+    public function drop(Request $request)
+    {
+        $payload = [
+            'trainer_id' => $request['trainer_id'],
+            'pokemon_id' => $request['pokemon_id']
+        ];
+
+        $this->trainerPokemonService->drop($payload);
+
+        return redirect()->route('trainer.index');
     }
 }

@@ -17,4 +17,9 @@ class TrainerPokemonService
     {
         return $this->trainerPokemonRepository->create($payload);
     }
+
+    public function drop($payload)
+    {
+        return $this->trainerPokemonRepository->dropPokemon(@$payload);
+    }
 }
