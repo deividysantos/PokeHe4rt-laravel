@@ -10,7 +10,7 @@
 
 @foreach($trainers as $trainer)
         <div>
-           {{ $trainer->name }}
+           {{ $trainer->name }} of {{ $trainer->region }}
             <a href="{{ route('trainer.show', $trainer->id) }}">Show More</a>
         </div>
         <br>

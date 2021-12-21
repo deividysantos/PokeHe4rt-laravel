@@ -2,14 +2,21 @@
 
 @section('title', 'Pokemons')
 
+@section('style')
+    <link rel="stylesheet" href="{{ asset('css/pokemonList.css') }}">
+@endsection
+
 @section('content')
-    @foreach ($pokemons ?? [] as $pokemon)
-    {{ $pokemon->name }}
-    <img src="{{ $pokemon->image_url }}" alt="image of {{ $pokemon->name }}">
-    <br><br>
-    @endforeach
+
+    <div class="pokemonsCaptured">
+        @foreach ($pokemons ?? [] as $pokemon)
+            <div class="pokemonCaptured">
+                <img src="{{ $pokemon->image_url }}" alt="image of {{ $pokemon->name }}">
+                <p>{{ $pokemon->name }}</p>
+            </div>
+        @endforeach
+    </div>
 <hr>
-    
 
     <a href="{{ route('pokemon.create') }}">Create a new Pokemon</a>
 

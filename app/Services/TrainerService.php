@@ -25,7 +25,7 @@ class TrainerService
 
     public function create($payload)
     {
-        return $this->create($payload);
+        return $this->trainerRepository->create($payload);
     }
 
     public function getPokemons($idTrainer)

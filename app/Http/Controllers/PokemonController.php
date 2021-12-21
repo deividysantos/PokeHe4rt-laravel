@@ -19,6 +19,12 @@ class PokemonController extends Controller
     {
         $pokemons = $this->pokemonService->getAll();
 
+        foreach ($pokemons as $key => $pokemon)
+        {
+            $pokemons[$key]->name = ucwords($pokemon->name);
+        }
+
+
         return view('pokemon.index', compact('pokemons','idTrainer'));
     }
 

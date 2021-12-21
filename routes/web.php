@@ -15,9 +15,12 @@ use PhpParser\Builder\Trait_;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function ()
+{
+    return redirect()->route('trainer.index');
+});
 
 Route::prefix('trainer')->group(function(){
-
     Route::get('/', [TrainerController::class, 'index'])->name('trainer.index');
     Route::get('/create', [TrainerController::class, 'create'])->name('trainer.create');
     Route::get('/{id}', [TrainerController::class, 'show'])->name('trainer.show');
