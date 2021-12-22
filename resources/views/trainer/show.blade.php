@@ -3,7 +3,7 @@
 @section('title', $trainer->name)
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('css/pokemonList.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pokemon/pokemonList.css') }}">
 @endsection
 
 @section('content')

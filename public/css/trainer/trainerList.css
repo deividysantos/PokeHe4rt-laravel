@@ -1,0 +1,57 @@
+.trainers {
+    background-color: #e2e8f0;
+    border-radius: 10px 0 0 0;
+
+    width: 300px;
+
+    margin: 10px auto;
+}
+
+.trainers p{
+    margin: 0;
+    background-color: darkgray;
+    padding: 5px 16px;
+    border-radius: 10px 0 2px 0;
+    font-size: larger;
+}
+
+.options{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    width: max-content;
+    padding: 10px;
+}
+
+.trainers a{
+    padding: 4px 6px;
+    text-decoration: none;
+    color: black;
+
+    border: 1px solid #23a3f7;
+    border-radius: 5px;
+}
+.trainers a:hover {
+    background-color:  #23a3f7 ;
+    border: 1px solid black;
+}
+
+input[type=submit]{
+    width: 80px;
+    padding: 4px 6px;
+    border: 1px solid crimson;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+
+}
+
+input[type=submit]:hover{
+    background-color:  #f74823 ;
+    border: 1px solid black;
+}
+
+.newTrainerBtn{
+    margin-left: auto;
+    width: max-content;
+}

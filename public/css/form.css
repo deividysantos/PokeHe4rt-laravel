@@ -1,0 +1,50 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    width: 250px;
+    margin-right: auto;
+    margin-left: auto;
+
+    padding: 15px 10px 15px 10px;
+
+    border-radius: 5px;
+
+    background-color: #cbd5e0;
+}
+
+.title{
+    font-size: larger;
+    font-family: "Ubuntu Light", sans-serif;
+    padding-left: 14px;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-left: 5px;
+    font-size: large;
+}
+
+input{
+    margin-bottom: 10px;
+    height: 20px;
+
+    border: 1px solid;
+    border-radius: 2px;
+}
+
+input[type=submit]
+{
+    cursor: pointer;
+    border-radius: 0px;
+    background-color: white;
+}
+
+input[type=submit]:hover {
+    background-color: #718096;
+
+}

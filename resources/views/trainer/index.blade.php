@@ -3,17 +3,30 @@
 @section('title', 'Trainers')
 
 @section('style')
-    <link  rel="stylesheet" href="{{ asset('css/trainerList.css') }}">
+    <link  rel="stylesheet" href="{{ asset('css/trainer/trainerList.css') }}">
 @endsection
 
 @section('content')
 
 @foreach($trainers as $trainer)
         <div class="trainers">
-           {{ $trainer->name }} of {{ $trainer->region }}
-            <a href="{{ route('trainer.show', $trainer->id) }}">Show More</a>
+           <p>{{ $trainer->name }}</p>
+
+            <div class="options">
+                <a href="{{ route('trainer.show', $trainer->id) }}"><span>Show More</span></a>
+                <form>
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" value="{{ $trainer->id }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </div>
+
         </div>
     @endforeach
 <hr>
-<a class="newTrainerBtn" href="{{ route('trainer.create') }}">Create a new trainer</a>
+
+<div class="newTrainerBtn">
+    <a href="{{ route('trainer.create') }}">Create a new trainer</a>
+</div>
 @endsection
