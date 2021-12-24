@@ -25,17 +25,40 @@ class PokemonController extends Controller
         }
 
 
-        return view('pokemon.index', compact('pokemons','idTrainer'));
+        return view('pokemon.pokemonIndex', compact('pokemons','idTrainer'));
+    }
+
+    public function Show($idTrainer, $name)
+    {
+        $pokemonInfos = $this->pokemonService->getDataPokemon($name);
+
+        $types = [];
+
+        foreach ($pokemonInfos->types as $type)
+        {
+            $types[] = ucfirst($type->type->name);
+        }
+
+        $pokemon = [
+            'name' => ucfirst($pokemonInfos->name),
+            'type' => $types,
+            'countTypes' => count($types),
+            'image_url' => $pokemonInfos->sprites->front_default,
+            'weight' => $pokemonInfos->weight,
+            'height' => $pokemonInfos->height
+        ];
+
+        return view('pokemon.pokemonShow', compact('pokemon', 'idTrainer'));
     }
 
     public function Create()
     {
-        return view('pokemon.create');
+        return view('pokemon.pokemonCreate');
     }
 
     public function Store(Request $request)
     {
-        $this->pokemonService->create($request['namePokemon']);
+        $this->pokemonService->create(strtolower($request['namePokemon']));
 
         return redirect()->route('trainer.index');
     }

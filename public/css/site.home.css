@@ -8,12 +8,16 @@ header {
     background-color: lavender;
     color: blueviolet;
     padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .homeBtn{
     text-decoration: none;
     font-size: larger;
     padding-left: 10px;
+    margin-top: 5px;
 }
 
 .container{

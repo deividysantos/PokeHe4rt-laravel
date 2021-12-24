@@ -38,4 +38,9 @@ class PokemonService
 
         return false;
     }
+
+    public function getDataPokemon($name)
+    {
+        return $this->pokemonRepository->getDataPokemon($name);
+    }
 }

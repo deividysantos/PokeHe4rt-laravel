@@ -27,4 +27,9 @@ class TrainerRepository
 
         return $trainer->pokemons;
     }
+
+    public function delete($id)
+    {
+        return Trainer::destroy($id);
+    }
 }

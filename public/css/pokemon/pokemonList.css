@@ -5,7 +5,8 @@
 }
 
 .pokemonCaptured{
-    width: 15%;
+    flex-wrap: wrap;
+    width: 150px;
     border: 2px solid #2d3748;
     margin: 5px;
     text-align: center;
@@ -13,5 +14,15 @@
 
 .pokemonCaptured img{
     padding: 1px;
-    border-bottom: 1px dashed blanchedalmond;
+    border-bottom: 3px dashed blanchedalmond;
+}
+
+.submitBtn{
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    background-color: darkred;
+    margin-bottom: 2px;
+    border: 1px solid black;
+    border-radius: 3px;
 }

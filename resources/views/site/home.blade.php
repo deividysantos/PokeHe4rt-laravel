@@ -11,6 +11,7 @@
 <body>
 <header>
     <a class="homeBtn" href="{{ route('trainer.index') }}">PokeHe4rt</a>
+    @yield('header')
 </header>
     <div class="container">
         @yield('content')

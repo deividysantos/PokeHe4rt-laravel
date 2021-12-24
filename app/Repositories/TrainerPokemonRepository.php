@@ -19,4 +19,16 @@ class TrainerPokemonRepository
 
         return $trainerPokemon->delete();
     }
+
+    public function deleteTrainer($idTrainer)
+    {
+        $trainerPokemons = TrainerPokemon::where('trainer_id', $idTrainer)->get();
+
+        foreach ($trainerPokemons as $trainerPokemon)
+        {
+            $trainerPokemon->delete();
+        }
+
+        return true;
+    }
 }

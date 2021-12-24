@@ -32,4 +32,9 @@ class TrainerService
     {
         return $this->trainerRepository->getPokemons($idTrainer);
     }
+
+    public function delete($idTrainer)
+    {
+        return $this->trainerRepository->delete($idTrainer);
+    }
 }

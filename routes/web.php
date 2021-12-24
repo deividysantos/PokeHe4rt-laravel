@@ -23,17 +23,18 @@ Route::get('/', function ()
 Route::prefix('trainer')->group(function(){
     Route::get('/', [TrainerController::class, 'index'])->name('trainer.index');
     Route::get('/create', [TrainerController::class, 'create'])->name('trainer.create');
+    Route::get('/delete/{id}', [TrainerController::class, 'destroy'])->name('trainer.destroy');
     Route::get('/{id}', [TrainerController::class, 'show'])->name('trainer.show');
     Route::post('/drop', [TrainerController::class, 'drop'])->name('trainer.drop');
-    Route::delete('/delete', [TrainerController::class, 'destroy'])->name('trainer.destroy');
     Route::post('/store', [TrainerController::class, 'store'])->name('trainer.store');
     Route::post('/capture', [TrainerController::class, 'capture'])->name('trainer.capture');
-
 });
 
+Route::get('{idTrainer}/Pokemon/show/{namePokemon}', [PokemonController::class, 'show'])->name('pokemon.show');
 Route::prefix('pokemon')->group(function()
 {
     Route::get('/trainer/{id}', [PokemonController::class, 'index'])->name('pokemon.index');
     Route::get('/create', [PokemonController::class, 'create'])->name('pokemon.create');
     Route::post('/store', [PokemonController::class, 'store'])->name('pokemon.store');
+
 });

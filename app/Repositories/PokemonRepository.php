@@ -19,22 +19,12 @@ class PokemonRepository
 
     public function create(string $name)
     {
-        $urlPokeApi = 'https://pokeapi.co/api/v2/pokemon/';
-
-        $url = $urlPokeApi . $name;
-
-        try {
-
-            $response = json_decode(file_get_contents($url));
-
-        } catch (\Throwable $th) {
-            return view('trainer.index');//pagina de erro
-        }
+        $pokemon = $this->getDataPokemon($name);
 
         $payload =[
             'name' => $name,
-            'image_url' => $response->sprites->front_default,
-            'attribute' => $response->types[0]->type->name
+            'image_url' => $pokemon->sprites->front_default,
+            'attribute' => $pokemon->types[0]->type->name
         ];
 
         Pokemon::create($payload);
@@ -45,5 +35,14 @@ class PokemonRepository
     public function getByName($name)
     {
         return Pokemon::where('name', $name)->get();
+    }
+
+    public function getDataPokemon($name)
+    {
+        $urlPokeApi = 'https://pokeapi.co/api/v2/pokemon/';
+
+        $url = $urlPokeApi . $name;
+
+        return json_decode(file_get_contents($url));
     }
 }

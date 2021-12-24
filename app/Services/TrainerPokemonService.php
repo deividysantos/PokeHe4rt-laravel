@@ -22,4 +22,9 @@ class TrainerPokemonService
     {
         return $this->trainerPokemonRepository->dropPokemon(@$payload);
     }
+
+    public function deleteTrainer($idTrainer)
+    {
+        return $this->trainerPokemonRepository->deleteTrainer($idTrainer);
+    }
 }

@@ -1,0 +1,17 @@
+.content{
+    border: 2px solid #a0aec0;
+    padding: 5px;
+}
+
+.infosTrainer{
+
+}
+
+.trainerName{
+    margin-top: 15px;
+    background-color: #a0aec0;
+    text-align: center;
+    font-size: large;
+    padding: 5px;
+    margin-bottom: 0px;
+}

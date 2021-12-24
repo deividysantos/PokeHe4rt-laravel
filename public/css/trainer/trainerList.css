@@ -7,12 +7,23 @@
     margin: 10px auto;
 }
 
-.trainers p{
+.nameTrainer p{
     margin: 0;
     background-color: darkgray;
     padding: 5px 16px;
     border-radius: 10px 0 2px 0;
     font-size: larger;
+}
+
+.infos{
+    display: flex;
+    flex-direction: row;
+}
+
+.regionTrainer p{
+    align-content: center;
+    font-size: large;
+    padding-left: 5px;
 }
 
 .options{
@@ -25,6 +36,7 @@
 
 .trainers a{
     padding: 4px 6px;
+    height: 16px;
     text-decoration: none;
     color: black;
 
@@ -52,6 +64,13 @@ input[type=submit]:hover{
 }
 
 .newTrainerBtn{
-    margin-left: auto;
     width: max-content;
+    background-color: #a0aec0;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.newTrainerBtn a{
+    text-decoration: none;
+    color: black;
 }
