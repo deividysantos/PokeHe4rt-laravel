@@ -24,5 +24,6 @@
         </div>
 
         <input type="submit" value="Sign In">
+        <a href="{{ route('trainer.index') }}">Back</a>
     </form>
 @endsection

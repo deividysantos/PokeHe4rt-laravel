@@ -15,7 +15,7 @@
             <p>Region: {{ $trainer->region }}</p>
             <p>Age: {{ $trainer->age }}</p>
         </div>
-        <a href="{{ route('pokemon.index', $trainer->id) }}">Add Pokemon</a>
+        <a class="captureBtn" href="{{ route('pokemon.index', $trainer->id) }}">Capture a Pokemon</a>
 
         <div class="pokemonsCaptured">
         @foreach ($pokemons ?? [] as $pokemon)
@@ -35,6 +35,6 @@
                 @endforeach
         </div>
         <hr>
-        <a href="{{route('trainer.index')}}">Back to trainers list</a>
+        <a class="backToTrainerList" href="{{route('trainer.index')}}">< Back to trainers list</a>
     </div>
 @endsection

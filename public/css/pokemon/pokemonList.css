@@ -2,13 +2,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 10px;
 }
 
 .pokemonCaptured{
     flex-wrap: wrap;
     width: 150px;
     border: 2px solid #2d3748;
-    margin: 5px;
+    margin: 10px;
     text-align: center;
 }
 

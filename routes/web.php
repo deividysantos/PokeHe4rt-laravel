@@ -34,7 +34,6 @@ Route::get('{idTrainer}/Pokemon/show/{namePokemon}', [PokemonController::class, 
 Route::prefix('pokemon')->group(function()
 {
     Route::get('/trainer/{id}', [PokemonController::class, 'index'])->name('pokemon.index');
-    Route::get('/create', [PokemonController::class, 'create'])->name('pokemon.create');
     Route::post('/store', [PokemonController::class, 'store'])->name('pokemon.store');
 
 });

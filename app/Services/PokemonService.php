@@ -43,4 +43,13 @@ class PokemonService
     {
         return $this->pokemonRepository->getDataPokemon($name);
     }
+
+    public function ucwordsMethod($collection)
+    {
+        return $collection->map(function($item, $key)
+        {
+            $item['name'] = ucwords($item['name']);
+            return $item;
+        });
+    }
 }

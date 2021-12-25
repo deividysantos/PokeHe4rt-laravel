@@ -19,18 +19,14 @@ class PokemonController extends Controller
     {
         $pokemons = $this->pokemonService->getAll();
 
-        foreach ($pokemons as $key => $pokemon)
-        {
-            $pokemons[$key]->name = ucwords($pokemon->name);
-        }
-
+        $pokemons = $this->pokemonService->ucwordsMethod($pokemons);
 
         return view('pokemon.pokemonIndex', compact('pokemons','idTrainer'));
     }
 
     public function Show($idTrainer, $name)
     {
-        $pokemonInfos = $this->pokemonService->getDataPokemon($name);
+        $pokemonInfos = $this->pokemonService->getDataPokemon(strtolower($name));
 
         $types = [];
 
@@ -49,11 +45,6 @@ class PokemonController extends Controller
         ];
 
         return view('pokemon.pokemonShow', compact('pokemon', 'idTrainer'));
-    }
-
-    public function Create()
-    {
-        return view('pokemon.pokemonCreate');
     }
 
     public function Store(Request $request)

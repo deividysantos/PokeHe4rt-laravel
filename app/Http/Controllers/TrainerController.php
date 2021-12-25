@@ -30,8 +30,6 @@ class TrainerController extends Controller
     {
         $trainers = $this->trainerService->getAll();
 
-
-
         return view('trainer.trainerIndex', compact(['trainers']));
     }
 
@@ -58,7 +56,7 @@ class TrainerController extends Controller
         $trainer = $this->trainerService->getById($id);
         $pokemons = $this->trainerService->getPokemons($id);
 
-//        $pokemons = arra
+        $pokemons = $this->pokemonService->ucwordsMethod($pokemons);
 
         return view('trainer.trainerShow', compact(['trainer', 'pokemons']));
     }
@@ -120,5 +118,10 @@ class TrainerController extends Controller
         $this->trainerPokemonService->drop($payload);
 
         return redirect()->route('trainer.show', $request['trainer_id']);
+    }
+
+    public function ucwordsMethod($pokemons)
+    {
+
     }
 }
