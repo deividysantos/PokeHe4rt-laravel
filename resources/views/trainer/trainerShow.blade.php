@@ -20,7 +20,7 @@
         <div class="pokemonsCaptured">
         @foreach ($pokemons ?? [] as $pokemon)
 
-                <div class="pokemonCaptured">
+            <div style='background-color: {{$types[$pokemon->attribute]}}' class="pokemonCaptured">
                     <a href="{{ route('pokemon.show', [$trainer->id, $pokemon->name]) }}">
                         <img src="{{ $pokemon->image_url }}" alt="image of {{ $pokemon->name }}">
                     </a>
@@ -29,7 +29,7 @@
                         @csrf
                         <input type="hidden" name="pokemon_id" value="{{ $pokemon->id }}">
                         <input type="hidden" name="trainer_id" value="{{ $trainer->id }}">
-                        <input class="submitBtn" type="submit" value="drop">
+                        <input class="submitBtn" type="submit" value="Drop">
                     </form>
                 </div>
                 @endforeach

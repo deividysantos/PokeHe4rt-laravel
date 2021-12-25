@@ -56,9 +56,11 @@ class TrainerController extends Controller
         $trainer = $this->trainerService->getById($id);
         $pokemons = $this->trainerService->getPokemons($id);
 
-        $pokemons = $this->pokemonService->ucwordsMethod($pokemons);
+        $pokemons = $this->pokemonService->ucwordsMethod($pokemons, 'name');
 
-        return view('trainer.trainerShow', compact(['trainer', 'pokemons']));
+        $types = $this->pokemonService->getTypes();
+
+        return view('trainer.trainerShow', compact(['trainer', 'pokemons', 'types']));
     }
 
     public function edit(Trainer $trainer)
@@ -81,7 +83,7 @@ class TrainerController extends Controller
 
     public function capture(Request $request)
     {
-        $namePokemon = strtolower($request['namePokemon']);
+            $namePokemon = strtolower($request['namePokemon']);
 
         $pokemon = $this->pokemonService->existByName($namePokemon);
 

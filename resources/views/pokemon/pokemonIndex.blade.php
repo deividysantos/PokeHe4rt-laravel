@@ -20,7 +20,7 @@
 
     <div class="pokemonsCaptured">
         @foreach ($pokemons ?? [] as $pokemon)
-            <div class="pokemonCaptured" id="{{ $pokemon->id }}">
+            <div style='background-color: {{$types[$pokemon->attribute]}}' class="pokemonCaptured" id="{{ $pokemon->id }}">
                 <img style="cursor: pointer" onclick='autoFill("{{$pokemon->name}}", {{$pokemon->id}})' id="{{$pokemon->name}}" src="{{ $pokemon->image_url }}" alt="image of {{ $pokemon->name }}">
                 <p>{{ $pokemon->name }}</p>
             </div>

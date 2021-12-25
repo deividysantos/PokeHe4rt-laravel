@@ -7,7 +7,7 @@ function autoFill(namePokemon, idPokemon)
     inputText.value = namePokemon;
     let pokemonCaptured = document.getElementById(idPokemon);
 
-    pokemonCaptured.style.cssText = 'border: 2px solid blue';
+    pokemonCaptured.style.cssText = pokemonCaptured.style.cssText + ' border: 2px solid blue';
     if(idPokemon !== lastPoke)
     {
         removeBorderLastPoke();
@@ -20,6 +20,7 @@ function removeBorderLastPoke()
     if(lastPoke !== 0)
     {
         let element = document.getElementById(lastPoke);
-        element.style.cssText = 'border: 2px solid black';
+        element.style.cssText = element.style.cssText + ' border: 2px solid black';
     }
 }
+
