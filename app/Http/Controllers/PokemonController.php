@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\PokemonService;
+use App\Repositories\PokemonRepository;
 use Illuminate\Http\Request;
 
 class PokemonController extends Controller
 {
 
-    protected PokemonService $pokemonService;
+    protected PokemonRepository $pokemonRepository;
 
-    public function __construct(PokemonService $pokeService)
+    public function __construct(PokemonRepository $pokemonRepository)
     {
-        $this->pokemonService = $pokeService;
+        $this->pokemonRepository = $pokemonRepository;
     }
 
     public function index($idTrainer)
     {
-        $pokemons = $this->pokemonService->getAll();
+        $pokemons = $this->pokemonRepository->getAll();
 
-        $pokemons = $this->pokemonService->ucwordsMethod($pokemons, 'name');
+        $pokemons = $this->pokemonRepository->ucwordsMethod($pokemons, 'name');
 
-        $types = $this->pokemonService->getTypes();
+        $types = $this->pokemonRepository->getTypes();
 
         return view('pokemon.pokemonIndex', compact([
             'pokemons',
@@ -31,7 +31,7 @@ class PokemonController extends Controller
 
     public function show($idTrainer, $name)
     {
-        $pokemonInfos = $this->pokemonService->getDataPokemon(strtolower($name));
+        $pokemonInfos = $this->pokemonRepository->getDataPokemon(strtolower($name));
 
         $types = [];
 
@@ -54,7 +54,7 @@ class PokemonController extends Controller
 
     public function Store(Request $request)
     {
-        $this->pokemonService->create(strtolower($request['namePokemon']));
+        $this->pokemonRepository->create(strtolower($request['namePokemon']));
 
         return redirect()->route('trainer.index');
     }

@@ -3,32 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trainer;
-use App\Services\PokemonService;
-use App\Services\TrainerPokemonService;
-use App\Services\TrainerService;
+use App\Repositories\PokemonRepository;
+use App\Repositories\TrainerPokemonRepository;
+use App\Repositories\TrainerRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use PhpParser\Node\Expr\Throw_;
-use PHPUnit\Exception;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TrainerController extends Controller
 {
-    private TrainerService $trainerService;
-    private PokemonService $pokemonService;
-    private TrainerPokemonService $trainerPokemonService;
+    private TrainerRepository $trainerRepository;
+    private PokemonRepository $pokemonRepository;
+    private TrainerPokemonRepository $trainerPokemonRepository;
 
-    public function __construct(TrainerService $trainerService,
-                                PokemonService $pokemonService,
-                                TrainerPokemonService $trainerPokemonService)
+    public function __construct(TrainerRepository $trainerRepository,
+                                PokemonRepository $pokemonRepository,
+                                TrainerPokemonRepository $trainerPokemonRepository)
     {
-        $this->trainerService = $trainerService;
-        $this->pokemonService = $pokemonService;
-        $this->trainerPokemonService = $trainerPokemonService;
+        $this->trainerRepository = $trainerRepository;
+        $this->pokemonRepository = $pokemonRepository;
+        $this->trainerPokemonRepository = $trainerPokemonRepository;
     }
 
     public function index()
     {
-        $trainers = $this->trainerService->getAll();
+        $trainers = $this->trainerRepository->getAll();
 
         return view('trainer.trainerIndex', compact(['trainers']));
     }
@@ -46,19 +44,19 @@ class TrainerController extends Controller
             'age' => $request['age']
         ];
 
-        $this->trainerService->create($payload);
+        $this->trainerRepository->create($payload);
 
         return redirect()->route('trainer.index');
     }
 
     public function show($id)
     {
-        $trainer = $this->trainerService->getById($id);
-        $pokemons = $this->trainerService->getPokemons($id);
+        $trainer = $this->trainerRepository->getById($id);
+        $pokemons = $this->trainerRepository->getPokemons($id);
 
-        $pokemons = $this->pokemonService->ucwordsMethod($pokemons, 'name');
+        $pokemons = $this->pokemonRepository->ucwordsMethod($pokemons, 'name');
 
-        $types = $this->pokemonService->getTypes();
+        $types = $this->pokemonRepository->getTypes();
 
         return view('trainer.trainerShow', compact(['trainer', 'pokemons', 'types']));
     }
@@ -73,10 +71,10 @@ class TrainerController extends Controller
         //
     }
 
-    public function destroy($idTrainer)
+    public function destroy($idTrainer):RedirectResponse
     {
-        $this->trainerPokemonService->deleteTrainer($idTrainer);
-        $this->trainerService->delete($idTrainer);
+        $this->trainerPokemonRepository->deleteTrainer($idTrainer);
+        $this->trainerRepository->delete($idTrainer);
 
         return Redirect()->Route('trainer.index', $idTrainer);
     }
@@ -85,12 +83,12 @@ class TrainerController extends Controller
     {
             $namePokemon = strtolower($request['namePokemon']);
 
-        $pokemon = $this->pokemonService->existByName($namePokemon);
+        $pokemon = $this->pokemonRepository->existByName($namePokemon);
 
         if(!$pokemon)
         {
-            $this->pokemonService->create($namePokemon);
-            $pokemon = $this->pokemonService->existByName($namePokemon);
+            $this->pokemonRepository->create($namePokemon);
+            $pokemon = $this->pokemonRepository->existByName($namePokemon);
         }
 
         if(!$pokemon)
@@ -98,14 +96,14 @@ class TrainerController extends Controller
             dd('sapoha n existe');
         }
 
-        $pokemon_id = $this->pokemonService->getByName($namePokemon)[0]->id;
+        $pokemon_id = $this->pokemonRepository->getByName($namePokemon)[0]->id;
 
         $payload = [
             'trainer_id' => $request['idTrainer'],
             'pokemon_id' => $pokemon_id
         ];
 
-        $this->trainerPokemonService->create($payload);
+        $this->trainerPokemonRepository->create($payload);
 
         return redirect()->route('trainer.show', $request['idTrainer']);
     }
@@ -117,13 +115,8 @@ class TrainerController extends Controller
             'pokemon_id' => $request['pokemon_id']
         ];
 
-        $this->trainerPokemonService->drop($payload);
+        $this->trainerPokemonRepository->dropPokemon($payload);
 
         return redirect()->route('trainer.show', $request['trainer_id']);
-    }
-
-    public function ucwordsMethod($pokemons)
-    {
-
     }
 }

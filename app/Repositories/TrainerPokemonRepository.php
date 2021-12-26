@@ -6,14 +6,21 @@ use App\Models\TrainerPokemon;
 
 class TrainerPokemonRepository
 {
+    protected TrainerPokemon $model;
+
+    public function __construct(TrainerPokemon $model)
+    {
+        $this->model = $model;
+    }
+
     public function create($payload)
     {
-        return TrainerPokemon::create($payload);
+        return $this->model->create($payload);
     }
 
     public function dropPokemon($payload)
     {
-        $trainerPokemon = TrainerPokemon::where('trainer_id', $payload['trainer_id'], 'and')
+        $trainerPokemon = $this->model->where('trainer_id', $payload['trainer_id'], 'and')
             ->where('pokemon_id', $payload['pokemon_id'])
             ->first();
 
@@ -22,13 +29,11 @@ class TrainerPokemonRepository
 
     public function deleteTrainer($idTrainer)
     {
-        $trainerPokemons = TrainerPokemon::where('trainer_id', $idTrainer)->get();
+        $trainerPokemons = $this->model->where('trainer_id', $idTrainer)->get();
 
         foreach ($trainerPokemons as $trainerPokemon)
         {
             $trainerPokemon->delete();
         }
-
-        return true;
     }
 }

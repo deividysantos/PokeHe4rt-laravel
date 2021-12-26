@@ -6,19 +6,26 @@ use App\Models\Trainer;
 
 class TrainerRepository
 {
+    protected Trainer $model;
+
+    public function __construct(Trainer $model)
+    {
+        $this->model = $model;
+    }
+
     public function getAll()
     {
-        return Trainer::all();
+        return $this->model->all();
     }
 
     public function create($payload)
     {
-        return Trainer::create($payload);
+        return $this->model->create($payload);
     }
 
     public function getById($id)
     {
-        return Trainer::find($id);
+        return $this->model->find($id);
     }
 
     public function getPokemons($idTrainer)
@@ -30,6 +37,6 @@ class TrainerRepository
 
     public function delete($id)
     {
-        return Trainer::destroy($id);
+        return $this->model->destroy($id);
     }
 }
