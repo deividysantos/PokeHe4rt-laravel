@@ -31,9 +31,9 @@ class TrainerPokemonRepository
     {
         $trainerPokemons = $this->model->where('trainer_id', $idTrainer)->get();
 
-        foreach ($trainerPokemons as $trainerPokemon)
+        $trainerPokemons->map(function ($trainerPokemon)
         {
             $trainerPokemon->delete();
-        }
+        });
     }
 }

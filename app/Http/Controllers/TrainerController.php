@@ -7,6 +7,7 @@ use App\Repositories\PokemonRepository;
 use App\Repositories\TrainerPokemonRepository;
 use App\Repositories\TrainerRepository;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TrainerController extends Controller
@@ -54,7 +55,7 @@ class TrainerController extends Controller
         $trainer = $this->trainerRepository->getById($id);
         $pokemons = $this->trainerRepository->getPokemons($id);
 
-        $pokemons = $this->pokemonRepository->ucwordsMethod($pokemons, 'name');
+        $pokemons = $this->pokemonRepository->ucfirstMethod($pokemons, 'name');
 
         $types = $this->pokemonRepository->getTypes();
 
@@ -81,17 +82,17 @@ class TrainerController extends Controller
 
     public function capture(Request $request)
     {
-            $namePokemon = strtolower($request['namePokemon']);
+        $namePokemon = strtolower($request['namePokemon']);
 
-        $pokemon = $this->pokemonRepository->existByName($namePokemon);
+        $pokemonExist = $this->pokemonRepository->existByName($namePokemon);
 
-        if(!$pokemon)
+        if(!$pokemonExist)
         {
             $this->pokemonRepository->create($namePokemon);
             $pokemon = $this->pokemonRepository->existByName($namePokemon);
         }
 
-        if(!$pokemon)
+        if(!$pokemonExist)
         {
             dd('sapoha n existe');
         }

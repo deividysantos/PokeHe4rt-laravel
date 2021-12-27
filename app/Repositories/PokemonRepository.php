@@ -7,7 +7,6 @@ use function view;
 
 class PokemonRepository
 {
-
     protected Pokemon $model;
 
     public function __construct(Pokemon $model)
@@ -57,11 +56,10 @@ class PokemonRepository
         return false;
     }
 
-    public function ucwordsMethod($collection, $atribute)
+    public function ucfirstMethod($collection, $atribute)
     {
-        return $collection->map(function($item, $key) use ($atribute) {
-            $item[$atribute] = ucwords($item[$atribute]);
-            return $item;
+        return $collection->map(function($item) use ($atribute) {
+            return ucfirst($item[$atribute]);
         });
     }
 

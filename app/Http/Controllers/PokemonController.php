@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\PokemonRepository;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class PokemonController extends Controller
 {
@@ -19,34 +20,33 @@ class PokemonController extends Controller
     {
         $pokemons = $this->pokemonRepository->getAll();
 
-        $pokemons = $this->pokemonRepository->ucwordsMethod($pokemons, 'name');
+        $pokemons = $this->pokemonRepository->ucfirstMethod($pokemons, 'name');
 
         $types = $this->pokemonRepository->getTypes();
 
         return view('pokemon.pokemonIndex', compact([
             'pokemons',
             'idTrainer',
-            'types']));
+            'types'])
+        );
     }
 
-    public function show($idTrainer, $name)
+    public function show($idTrainer, $namePokemon)
     {
-        $pokemonInfos = $this->pokemonRepository->getDataPokemon(strtolower($name));
+        $pokemonInfo = $this->pokemonRepository->getDataPokemon(strtolower($namePokemon));
 
-        $types = [];
-
-        foreach ($pokemonInfos->types as $type)
+        $types = $pokemonInfo->map(function ($item)
         {
-            $types[] = ucfirst($type->type->name);
-        }
+            return ucfirst($item->type->name);
+        });
 
         $pokemon = [
-            'name' => ucfirst($pokemonInfos->name),
+            'name' => ucfirst($pokemonInfo->name),
             'type' => $types,
             'countTypes' => count($types),
-            'image_url' => $pokemonInfos->sprites->front_default,
-            'weight' => $pokemonInfos->weight,
-            'height' => $pokemonInfos->height
+            'image_url' => $pokemonInfo->sprites->front_default,
+            'weight' => $pokemonInfo->weight,
+            'height' => $pokemonInfo->height
         ];
 
         return view('pokemon.pokemonShow', compact(['pokemon', 'idTrainer']));
