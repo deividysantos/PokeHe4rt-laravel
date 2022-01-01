@@ -56,13 +56,6 @@ class PokemonRepository
         return false;
     }
 
-    public function ucfirstMethod($collection, $atribute)
-    {
-        return $collection->map(function($item) use ($atribute) {
-            return ucfirst($item[$atribute]);
-        });
-    }
-
     public function getTypes()
     {
         return $types = [

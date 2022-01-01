@@ -20,7 +20,9 @@ class PokemonController extends Controller
     {
         $pokemons = $this->pokemonRepository->getAll();
 
-        $pokemons = $this->pokemonRepository->ucfirstMethod($pokemons, 'name');
+        $pokemons->map(function ($pokemon){
+            $pokemon->name = ucfirst($pokemon->name);
+        });
 
         $types = $this->pokemonRepository->getTypes();
 
@@ -35,14 +37,16 @@ class PokemonController extends Controller
     {
         $pokemonInfo = $this->pokemonRepository->getDataPokemon(strtolower($namePokemon));
 
-        $types = $pokemonInfo->map(function ($item)
+        $types = [];
+
+        foreach ($pokemonInfo->types as $type)
         {
-            return ucfirst($item->type->name);
-        });
+            $types[] = ucfirst($type->type->name);
+        }
 
         $pokemon = [
             'name' => ucfirst($pokemonInfo->name),
-            'type' => $types,
+            'types' => $types,
             'countTypes' => count($types),
             'image_url' => $pokemonInfo->sprites->front_default,
             'weight' => $pokemonInfo->weight,

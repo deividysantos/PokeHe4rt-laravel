@@ -55,7 +55,9 @@ class TrainerController extends Controller
         $trainer = $this->trainerRepository->getById($id);
         $pokemons = $this->trainerRepository->getPokemons($id);
 
-        $pokemons = $this->pokemonRepository->ucfirstMethod($pokemons, 'name');
+        $pokemons->map(function ($pokemon){
+            $pokemon->name = ucfirst($pokemon->name);
+        });
 
         $types = $this->pokemonRepository->getTypes();
 

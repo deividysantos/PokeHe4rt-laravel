@@ -17,8 +17,8 @@ use PhpParser\Builder\Trait_;
 */
 Route::get('/', function ()
 {
-    return redirect()->route('trainer.index');
-});
+    return view('site.homepage');
+})->name('/');
 
 Route::prefix('trainer')->group(function(){
     Route::get('/', [TrainerController::class, 'index'])->name('trainer.index');

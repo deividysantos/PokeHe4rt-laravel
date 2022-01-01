@@ -14,12 +14,12 @@
             <img class="imgPokemon" src="{{$pokemon['image_url']}}" alt="image of {{$pokemon['name']}}">
 
             @if($pokemon['countTypes'] === 1)
-                <p>Type: {{ $pokemon['type'][0] }}</p>
+                <p>Type: {{ $pokemon['types'][0] }}</p>
             @endif
 
             @if($pokemon['countTypes'] > 1)
                 <p> Types: |
-                @foreach($pokemon['type'] as $type)
+                @foreach($pokemon['types'] as $type)
                     {{$type}} |
                 @endforeach
                 </p>

@@ -2,26 +2,45 @@ body{
     margin: 0;
     padding: 0;
     font-family: "Ubuntu Mono", sans-serif;
+    background-color: rgb(45, 55, 72);
 }
 
 header {
-    background-color: lavender;
-    color: blueviolet;
     padding: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border-bottom: 1px dashed rgb(179,84,241);
 }
 
 .homeBtn{
     text-decoration: none;
     font-size: larger;
-    padding-left: 10px;
-    margin-top: 5px;
+    color: rgb(179,84,241);
+    border: 2px solid rgb(179,84,241);
+    border-radius: 10px;
+    padding: 10px 15px 10px 15px;
+    margin: 10px 0 10px 10px;
+}
+
+.homeBtn:hover{
+    border: 2px solid rgb(45, 55, 72);
+    background-color: rgb(204, 204, 255);
+    color: rgb(45, 55, 72);
 }
 
 .container{
-    width: 80%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
+}
+
+footer {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    bottom: 0;
+    position: fixed;
+    background-color: rgb(204, 204, 255);
+    padding: 10px;
 }

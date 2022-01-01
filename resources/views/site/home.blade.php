@@ -10,12 +10,17 @@
 </head>
 <body>
 <header>
-    <a class="homeBtn" href="{{ route('trainer.index') }}">PokeHe4rt</a>
+    <a class="homeBtn" href="{{ route('/') }}">PokeHe4rt</a>
     @yield('header')
 </header>
     <div class="container">
         @yield('content')
     </div>
+
+    <footer>
+        Desenvolvido por Deividy Santos
+    </footer>
+
 </body>
 @yield('script')
 </html>
