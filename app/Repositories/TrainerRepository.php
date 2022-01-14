@@ -18,14 +18,32 @@ class TrainerRepository
         return $this->model->all();
     }
 
-    public function create($payload)
+    public function getByName($trainerName)
     {
-        return $this->model->create($payload);
+        return $this->model->where('name', $trainerName)->get();
     }
 
     public function getById($id)
     {
         return $this->model->find($id);
+    }
+
+    public function getByRegionAndName($region, $name)
+    {
+        return $this->model->where('region', $region)->where( 'name', $name)->get();
+    }
+
+    public function create($payload)
+    {
+        $equalsTrainer = $this->getByName($payload['name']);
+
+        foreach ($equalsTrainer as $equalTrainer)
+        {
+            if($equalTrainer->region == $payload['region'])
+                return false;
+        }
+
+        return $this->model->create($payload);
     }
 
     public function getPokemons($idTrainer)

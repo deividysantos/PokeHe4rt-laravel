@@ -3,6 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Pokemon;
+
+use Illuminate\Database\Eloquent\Collection;
+use Symfony\Component\Routing\Exception\InvalidArgumentException;
 use function view;
 
 class PokemonRepository
@@ -19,24 +22,26 @@ class PokemonRepository
         return $this->model->all();
     }
 
-    public function create(string $name)
+    public function create(string $pokemonName)
     {
-        $pokemon = $this->getDataPokemon($name);
+        $pokemonName = strtolower($pokemonName);
+
+        if( $this->existByName($pokemonName) )
+            return true;
+
+        $pokemon = $this->getDataPokemon($pokemonName);
+
+        if(!$pokemon)
+            throw new InvalidArgumentException('Pokemon not exist!',404);
 
         $payload =[
-            'name' => $name,
+            'name' => $pokemonName,
             'image_url' => $pokemon->sprites->front_default,
             'attribute' => $pokemon->types[0]->type->name
         ];
 
         $this->model->create($payload);
-
         return true;
-    }
-
-    public function getByName($name)
-    {
-        return $this->model->where('name', $name)->get();
     }
 
     public function getDataPokemon($name)
@@ -45,15 +50,28 @@ class PokemonRepository
 
         $url = $urlPokeApi . $name;
 
-        return json_decode(file_get_contents($url));
+        try
+        {
+            $response = json_decode(file_get_contents($url));
+        }catch (\ErrorException)
+        {
+            return false;
+        }
+
+        return $response;
     }
 
-    public function existByName($name)
+    public function existByName($name): bool
     {
         if(isset($this->getByName($name)[0]))
             return true;
 
         return false;
+    }
+
+    public function getByName($name)
+    {
+        return $this->model->where('name', $name)->get();
     }
 
     public function getTypes()

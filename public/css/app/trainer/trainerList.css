@@ -1,0 +1,43 @@
+.trainers {
+
+background-color: #23a3f7;
+
+    margin: 10px auto;
+    width: 70%;
+}
+
+.nameTrainer p{
+    padding: 10px;
+
+    font-size: larger;
+    border-bottom: 2px solid black;
+}
+
+.nameTrainer span{
+    font-size: small;
+}
+
+.infos{
+    display: flex;
+    flex-direction: row;
+}
+
+.options{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    width: max-content;
+    padding: 10px;
+}
+
+img{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.showMoreImg, .trashImg{
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+}

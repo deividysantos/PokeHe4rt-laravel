@@ -8,7 +8,7 @@ use App\Repositories\TrainerPokemonRepository;
 use App\Repositories\TrainerRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Illuminate\View\View;
 
 class TrainerController extends Controller
 {
@@ -25,35 +25,15 @@ class TrainerController extends Controller
         $this->trainerPokemonRepository = $trainerPokemonRepository;
     }
 
-    public function index()
+    public function getCreate()
     {
-        $trainers = $this->trainerRepository->getAll();
-
-        return view('trainer.trainerIndex', compact(['trainers']));
+        return view('app.trainer.trainerCreate');
     }
 
-    public function create()
+    public function getProfile(string $region, string $name)
     {
-        return view('trainer.trainerCreate');
-    }
-
-    public function store(Request $request)
-    {
-        $payload = [
-            'name' => $request['name'],
-            'region' => $request['region'],
-            'age' => $request['age']
-        ];
-
-        $this->trainerRepository->create($payload);
-
-        return redirect()->route('trainer.index');
-    }
-
-    public function show($id)
-    {
-        $trainer = $this->trainerRepository->getById($id);
-        $pokemons = $this->trainerRepository->getPokemons($id);
+        $trainer = $this->trainerRepository->getByRegionAndName($region, $name)[0];
+        $pokemons = $this->trainerRepository->getPokemons($trainer->id);
 
         $pokemons->map(function ($pokemon){
             $pokemon->name = ucfirst($pokemon->name);
@@ -61,65 +41,70 @@ class TrainerController extends Controller
 
         $types = $this->pokemonRepository->getTypes();
 
-        return view('trainer.trainerShow', compact(['trainer', 'pokemons', 'types']));
+        return view('app.trainer.trainerShow', compact(['trainer', 'pokemons', 'types']));
     }
 
-    public function edit(Trainer $trainer)
+    public function postCreate(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'region' => 'required',
+            'age' => 'required|numeric'
+        ]);
+
+        $payload = [
+            'name' => $request['name'],
+            'region' => $request['region'],
+            'age' => $request['age']
+        ];
+
+        if(!$this->trainerRepository->create($payload)){
+            $messageError = 'Trainer already registered';
+            return view('error', compact('messageError'));
+        }
+
+
+        return redirect()->route('trainer.index');
     }
 
-    public function update(Request $request, Trainer $trainer)
+    public function postDelete($idTrainer)
     {
-        //
-    }
-
-    public function destroy($idTrainer):RedirectResponse
-    {
-        $this->trainerPokemonRepository->deleteTrainer($idTrainer);
+        $this->trainerPokemonRepository->deletePokemonsByTrainer($idTrainer);
         $this->trainerRepository->delete($idTrainer);
 
         return Redirect()->Route('trainer.index', $idTrainer);
     }
 
-    public function capture(Request $request)
+    public function postCapturePokemon(Request $request)
     {
-        $namePokemon = strtolower($request['namePokemon']);
-
-        $pokemonExist = $this->pokemonRepository->existByName($namePokemon);
-
-        if(!$pokemonExist)
+        try{
+            $this->pokemonRepository->create($request['namePokemon']);
+        }catch (\InvalidArgumentException $e)
         {
-            $this->pokemonRepository->create($namePokemon);
-            $pokemon = $this->pokemonRepository->existByName($namePokemon);
+            $messageError = $e->getMessage();
+            return view('error', compact('messageError'));
         }
 
-        if(!$pokemonExist)
-        {
-            dd('sapoha n existe');
-        }
-
-        $pokemon_id = $this->pokemonRepository->getByName($namePokemon)[0]->id;
+        $pokemon = $this->pokemonRepository->getByName($request['namePokemon']);
 
         $payload = [
             'trainer_id' => $request['idTrainer'],
-            'pokemon_id' => $pokemon_id
+            'pokemon_id' => $pokemon[0]->id
         ];
 
         $this->trainerPokemonRepository->create($payload);
 
-        return redirect()->route('trainer.show', $request['idTrainer']);
+        $trainer = $this->trainerRepository->getById($request['idTrainer']);
+
+        return redirect()->route('trainer.profile', [$trainer->region, $trainer->name]);
     }
 
-    public function drop(Request $request)
+    public function postDropPokemon(Request $request)
     {
-        $payload = [
-            'trainer_id' => $request['trainer_id'],
-            'pokemon_id' => $request['pokemon_id']
-        ];
+        $this->trainerPokemonRepository->dropPokemon($request['trainer_id'], $request['pokemon_id']);
 
-        $this->trainerPokemonRepository->dropPokemon($payload);
+        $trainer = $this->trainerRepository->getById($request['trainer_id']);
 
-        return redirect()->route('trainer.show', $request['trainer_id']);
+        return redirect()->route('trainer.profile', [$trainer->region, $trainer->name]);
     }
 }

@@ -15,19 +15,18 @@ use PhpParser\Builder\Trait_;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function ()
-{
+Route::get('/', function (){
     return view('site.homepage');
-})->name('/');
+})->name('site.home');
 
 Route::prefix('trainer')->group(function(){
-    Route::get('/', [TrainerController::class, 'index'])->name('trainer.index');
-    Route::get('/create', [TrainerController::class, 'create'])->name('trainer.create');
-    Route::get('/delete/{id}', [TrainerController::class, 'destroy'])->name('trainer.destroy');
-    Route::get('/{id}', [TrainerController::class, 'show'])->name('trainer.show');
-    Route::post('/drop', [TrainerController::class, 'drop'])->name('trainer.drop');
-    Route::post('/store', [TrainerController::class, 'store'])->name('trainer.store');
-    Route::post('/capture', [TrainerController::class, 'capture'])->name('trainer.capture');
+    Route::get('/create', [TrainerController::class, 'getCreate'])->name('trainer.viewCreate');
+    Route::get('/{region}/{name}', [TrainerController::class, 'getProfile'])->name('trainer.profile');
+
+    Route::post('/create', [TrainerController::class, 'postCreate'])->name('trainer.apiCreate');
+    Route::delete('/delete/{id}', [TrainerController::class, 'postDelete'])->name('trainer.delete');
+    Route::post('/drop', [TrainerController::class, 'postDropPokemon'])->name('trainer.dropPokemon');
+    Route::post('/capture', [TrainerController::class, 'postCapturePokemon'])->name('trainer.capturePokemon');
 });
 
 Route::get('{idTrainer}/Pokemon/show/{namePokemon}', [PokemonController::class, 'show'])->name('pokemon.show');
@@ -37,3 +36,5 @@ Route::prefix('pokemon')->group(function()
     Route::post('/store', [PokemonController::class, 'store'])->name('pokemon.store');
 
 });
+
+Route::post('api/trainer/new', [TrainerController::class, 'store'])->name('createTrainerApi');

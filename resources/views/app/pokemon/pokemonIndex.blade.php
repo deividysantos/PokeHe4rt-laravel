@@ -1,13 +1,13 @@
-@extends('site.home')
+@extends('template.home')
 
 @section('title', 'Pokemons')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('css/pokemon/pokemonList.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/pokemon/pokemonList.css') }}">
 @endsection
 
 @section('header')
-    <form action="{{ route('trainer.capture') }}" method="POST">
+    <form action="{{ route('trainer.capturePokemon') }}" method="POST">
         @csrf
         <input type="hidden" name="idTrainer" value="{{ $idTrainer }}">
         <input type="text" name="namePokemon" id="namePokemon" placeholder="Name">

@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-    <a class="homeBtn" href="{{ route('/') }}">PokeHe4rt</a>
+    <a class="homeBtn" href="{{ route('site.home') }}">PokeHe4rt</a>
     @yield('header')
 </header>
     <div class="container">

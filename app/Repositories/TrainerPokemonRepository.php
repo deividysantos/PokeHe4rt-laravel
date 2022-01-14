@@ -18,16 +18,16 @@ class TrainerPokemonRepository
         return $this->model->create($payload);
     }
 
-    public function dropPokemon($payload)
+    public function dropPokemon(int $trainerId, int $pokemonId):bool
     {
-        $trainerPokemon = $this->model->where('trainer_id', $payload['trainer_id'], 'and')
-            ->where('pokemon_id', $payload['pokemon_id'])
+        $trainerPokemon = $this->model->where('trainer_id', $trainerId, 'and')
+            ->where('pokemon_id', $pokemonId)
             ->first();
 
         return $trainerPokemon->delete();
     }
 
-    public function deleteTrainer($idTrainer)
+    public function deletePokemonsByTrainer(int $idTrainer)
     {
         $trainerPokemons = $this->model->where('trainer_id', $idTrainer)->get();
 

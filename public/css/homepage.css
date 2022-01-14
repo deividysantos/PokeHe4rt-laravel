@@ -1,60 +1,23 @@
-.loginTwitch{
-    margin: 13px 15px 0 0;
-    background-color: rgb(179,84,241);
-    padding: 15px 15px 0 15px;
-    height: 32px;
-    display: inline-flex;
-    border-radius: 3px;
-    text-decoration: none;
-    color: #572b69;
-}
-
-.loginTwitch p{
-    margin: 0 0 0 10px;
-    height: 20px;
-    font-size: large;
-}
-
-.loginTwitch img {
-    width: 20px;
-    height: 20px;
-}
-
-.loginTwitch:hover{
-background-color: rgb(204, 204, 255);
-}
-
-
 .welcome{
     border-radius: 5px;
     background-size: cover;
-    background-image: url("../images/723277.jpg");
+    background-image: url("../images/welcome.jpg");
     height: 500px;
     width: 1100px;
     margin: 15px auto 45px auto;
+    border: 3px solid black;
 }
 
 .informacao{
     text-align: center;
-    font-size: large;
+    font-size: larger;
     font-family: "Fira Code", serif;
-    padding: 15px 0 15px 0;
-    margin: 410px auto 11px auto;
-    width: 500px;
+    margin: 50px auto 0 auto;
     color: white;
-    background-color: rgba(179,84,241, 80%);
-    border-radius: 15px;
+    border-bottom: 2px solid black;
+    width: 400px;
 }
 
 .informacao:hover{
-    background-color: rgba(179,84,241, 90%);
-}
-
-.test{
-    border: 3px solid rgb(179,84,241);
-    border-radius: 5px;
-}
-
-.lives{
-
+    cursor: default;
 }

@@ -1,10 +1,10 @@
-@extends('site.home')
+@extends('template.home')
 
 @section('title', $trainer->name)
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('css/pokemon/pokemonList.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/trainer/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/pokemon/pokemonList.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/trainer/profile.css') }}">
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@
                         <img src="{{ $pokemon->image_url }}" alt="image of {{ $pokemon->name }}">
                     </a>
                     <p>{{ $pokemon->name }}</p>
-                    <form action="{{route('trainer.drop')}}" method="POST">
+                    <form action="{{route('trainer.dropPokemon')}}" method="POST">
                         @csrf
                         <input type="hidden" name="pokemon_id" value="{{ $pokemon->id }}">
                         <input type="hidden" name="trainer_id" value="{{ $trainer->id }}">
@@ -34,7 +34,5 @@
                 </div>
                 @endforeach
         </div>
-        <hr>
-        <a class="backToTrainerList" href="{{route('trainer.index')}}">< Back to trainers list</a>
     </div>
 @endsection

@@ -26,7 +26,7 @@ class PokemonController extends Controller
 
         $types = $this->pokemonRepository->getTypes();
 
-        return view('pokemon.pokemonIndex', compact([
+        return view('app.pokemon.pokemonIndex', compact([
             'pokemons',
             'idTrainer',
             'types'])
@@ -53,7 +53,7 @@ class PokemonController extends Controller
             'height' => $pokemonInfo->height
         ];
 
-        return view('pokemon.pokemonShow', compact(['pokemon', 'idTrainer']));
+        return view('app.pokemon.pokemonShow', compact(['pokemon', 'idTrainer']));
     }
 
     public function Store(Request $request)

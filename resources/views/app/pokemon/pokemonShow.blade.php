@@ -1,9 +1,9 @@
-@extends('site.home')
+@extends('template.home')
 
 @section('title', $pokemon['name'] )
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('css/pokemon/pokemonShow.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/pokemon/pokemonShow.css') }}">
 @endsection
 
 @section('content')
@@ -28,7 +28,7 @@
             <p>Weight: {{$pokemon['weight']}} <br>Height: {{$pokemon['height']}} </p>
         </div>
         <hr>
-        <a class="backToProfile" href="{{route('trainer.show', $idTrainer)}}">
+        <a class="backToProfile" href="{{route('trainer.profile', $idTrainer)}}">
           < Back to User Profile
         </a>
     </div>
