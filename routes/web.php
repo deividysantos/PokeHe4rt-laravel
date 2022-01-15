@@ -15,6 +15,7 @@ use PhpParser\Builder\Trait_;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function (){
     return view('site.homepage');
 })->name('site.home');
@@ -37,4 +38,8 @@ Route::prefix('pokemon')->group(function()
 
 });
 
-Route::post('api/trainer/new', [TrainerController::class, 'store'])->name('createTrainerApi');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

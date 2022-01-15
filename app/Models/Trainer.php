@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Trainer extends Model
+class Trainer extends Authenticatable
 {
     protected $table ='trainers';
 
@@ -12,9 +13,16 @@ class Trainer extends Model
 
     protected $fillable = [
         'id',
+        'email',
         'name',
         'region',
-        'age'
+        'age',
+        'password',
+    ];
+
+    protected $hidden = [
+
+        'remember_token',
     ];
 
     public function pokemons()
