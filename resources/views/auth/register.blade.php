@@ -43,10 +43,21 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
                                 name="password_confirmation" required />
+            </div >
+
+            <!-- Age -->
+            <div class="mt-4">
+                <x-label for="age" value="Age" />
+                <x-input id="age" class="block mt-1 w-full"
+                         type="number"
+                         name="age" required />
             </div>
 
-                <select required name="region">
-                    <option value="" selected disabled hidden>Region</option>
+            <!-- Region -->
+            <div class="mt-4">
+                <x-label for="region" value="Region" />
+                <select class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full" name="region" id="region" required>
+                    <option value="" selected disabled hidden></option>
                     <option value="Kanto">Kanto</option>
                     <option value="Johto">Johto</option>
                     <option value="Hoenn">Hoenn</option>
@@ -54,8 +65,7 @@
                     <option value="Unova">Unova</option>
                     <option value="Kalos">Kalos</option>
                 </select>
-
-                <input required type="number" id="age" name="age" placeholder="Age">
+            </div>
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">

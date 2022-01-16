@@ -21,7 +21,7 @@ class Trainer extends Authenticatable
     ];
 
     protected $hidden = [
-
+        'password',
         'remember_token',
     ];
 

@@ -16,6 +16,11 @@ class PokemonController extends Controller
         $this->pokemonRepository = $pokemonRepository;
     }
 
+    public function getMyPokemons()
+    {
+        return view('myPokemons');
+    }
+
     public function index($idTrainer)
     {
         $pokemons = $this->pokemonRepository->getAll();
@@ -33,11 +38,9 @@ class PokemonController extends Controller
         );
     }
 
-    public function show($idTrainer, $namePokemon)
+    public function show(string $namePokemon)
     {
         $pokemonInfo = $this->pokemonRepository->getDataPokemon(strtolower($namePokemon));
-
-        $types = [];
 
         foreach ($pokemonInfo->types as $type)
         {
@@ -52,8 +55,7 @@ class PokemonController extends Controller
             'weight' => $pokemonInfo->weight,
             'height' => $pokemonInfo->height
         ];
-
-        return view('app.pokemon.pokemonShow', compact(['pokemon', 'idTrainer']));
+        return redirect('https://www.pokemon.com/br/pokedex/' . $pokemonInfo->name);
     }
 
     public function Store(Request $request)

@@ -8,6 +8,7 @@ use App\Repositories\TrainerPokemonRepository;
 use App\Repositories\TrainerRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class TrainerController extends Controller
@@ -88,23 +89,21 @@ class TrainerController extends Controller
         $pokemon = $this->pokemonRepository->getByName($request['namePokemon']);
 
         $payload = [
-            'trainer_id' => $request['idTrainer'],
+            'trainer_id' => Auth::user()->id,
             'pokemon_id' => $pokemon[0]->id
         ];
 
         $this->trainerPokemonRepository->create($payload);
 
-        $trainer = $this->trainerRepository->getById($request['idTrainer']);
+        $trainer = $this->trainerRepository->getById(Auth::user()->id);
 
-        return redirect()->route('trainer.profile', [$trainer->region, $trainer->name]);
+        return redirect()->route('myPokemons', [Auth::user()->region, Auth::user()->name]);
     }
 
-    public function postDropPokemon(Request $request)
+    public function postDropPokemon(string $pokemonId)
     {
-        $this->trainerPokemonRepository->dropPokemon($request['trainer_id'], $request['pokemon_id']);
+        $this->trainerPokemonRepository->dropPokemon(Auth::user()->id,$pokemonId);
 
-        $trainer = $this->trainerRepository->getById($request['trainer_id']);
-
-        return redirect()->route('trainer.profile', [$trainer->region, $trainer->name]);
+        return redirect()->route('myPokemons');
     }
 }
