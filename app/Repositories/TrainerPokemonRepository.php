@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\TrainerPokemon;
+use Illuminate\Support\Facades\DB;
 
 class TrainerPokemonRepository
 {
@@ -35,5 +36,19 @@ class TrainerPokemonRepository
         {
             $trainerPokemon->delete();
         });
+    }
+
+    public function getPokemonId(string $trainerPokemonId)
+    {
+        return $this->model->find($trainerPokemonId);
+    }
+
+    public function editNickNamePokemon(string $trainerPokemonId, string $nickName)
+    {
+        $trainerPokemon = $this->model->find($trainerPokemonId);
+
+        $trainerPokemon->nickName = $nickName;
+
+        $trainerPokemon->save();
     }
 }

@@ -39,12 +39,4 @@
                 Seja Bem Vindo Treinador
             </p>
     </section>
-
-    <section class="lives">
-
-    </section>
-@endsection
-
-@section('script')
-
 @endsection

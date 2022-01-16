@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Trainer;
 
-use App\Models\Trainer;
 use App\Repositories\PokemonRepository;
 use App\Repositories\TrainerPokemonRepository;
 use App\Repositories\TrainerRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
+use function redirect;
+use function view;
 
 class TrainerController extends Controller
 {
@@ -26,46 +26,9 @@ class TrainerController extends Controller
         $this->trainerPokemonRepository = $trainerPokemonRepository;
     }
 
-    public function getCreate()
+    public function getMyPokemons()
     {
-        return view('app.trainer.trainerCreate');
-    }
-
-    public function getProfile(string $region, string $name)
-    {
-        $trainer = $this->trainerRepository->getByRegionAndName($region, $name)[0];
-        $pokemons = $this->trainerRepository->getPokemons($trainer->id);
-
-        $pokemons->map(function ($pokemon){
-            $pokemon->name = ucfirst($pokemon->name);
-        });
-
-        $types = $this->pokemonRepository->getTypes();
-
-        return view('app.trainer.trainerShow', compact(['trainer', 'pokemons', 'types']));
-    }
-
-    public function postCreate(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'region' => 'required',
-            'age' => 'required|numeric'
-        ]);
-
-        $payload = [
-            'name' => $request['name'],
-            'region' => $request['region'],
-            'age' => $request['age']
-        ];
-
-        if(!$this->trainerRepository->create($payload)){
-            $messageError = 'Trainer already registered';
-            return view('error', compact('messageError'));
-        }
-
-
-        return redirect()->route('trainer.index');
+        return view('myPokemons');
     }
 
     public function postDelete($idTrainer)
@@ -89,6 +52,7 @@ class TrainerController extends Controller
         $pokemon = $this->pokemonRepository->getByName($request['namePokemon']);
 
         $payload = [
+            'nickName' => "",
             'trainer_id' => Auth::user()->id,
             'pokemon_id' => $pokemon[0]->id
         ];

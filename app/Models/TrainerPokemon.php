@@ -11,7 +11,31 @@ class TrainerPokemon extends Model
 
     protected $fillable = [
         'id',
+        'nickName',
         'trainer_id',
         'pokemon_id'
     ];
+
+    public function pokemon()
+    {
+        return $this->belongsTo(Pokemon::class);
+    }
+
+    public function trainer()
+    {
+        return $this->belongsTo(Trainer::class);
+    }
 }
+
+/*
+ * trainer
+ *      belongsToMany TrainerPokemon
+ *
+ * trainerPokemon
+ *      belongsTo Trainer
+ *      belongsTo Pokemon
+ *
+ * pokemon
+ *      belongsToMany TrainerPokemon
+ *
+ * */

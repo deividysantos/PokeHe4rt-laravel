@@ -45,26 +45,26 @@
                                 name="password_confirmation" required />
             </div >
 
+                <!-- Region -->
+                <div class="mt-4">
+                    <x-label for="region" value="Region" />
+                    <select class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full" name="region" id="region" required>
+                        <option value="" selected disabled hidden></option>
+                        <option value="Kanto">Kanto</option>
+                        <option value="Johto">Johto</option>
+                        <option value="Hoenn">Hoenn</option>
+                        <option value="Sinnoh">Sinnoh</option>
+                        <option value="Unova">Unova</option>
+                        <option value="Kalos">Kalos</option>
+                    </select>
+                </div>
+
             <!-- Age -->
             <div class="mt-4">
                 <x-label for="age" value="Age" />
                 <x-input id="age" class="block mt-1 w-full"
                          type="number"
                          name="age" required />
-            </div>
-
-            <!-- Region -->
-            <div class="mt-4">
-                <x-label for="region" value="Region" />
-                <select class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full" name="region" id="region" required>
-                    <option value="" selected disabled hidden></option>
-                    <option value="Kanto">Kanto</option>
-                    <option value="Johto">Johto</option>
-                    <option value="Hoenn">Hoenn</option>
-                    <option value="Sinnoh">Sinnoh</option>
-                    <option value="Unova">Unova</option>
-                    <option value="Kalos">Kalos</option>
-                </select>
             </div>
 
             <div class="flex items-center justify-end mt-4">

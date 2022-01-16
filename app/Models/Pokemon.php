@@ -15,8 +15,8 @@ class Pokemon extends Model
         'attribute'
     ];
 
-    public function trainers()
+    public function trainerPokemon()
     {
-        return $this->belongsToMany(Trainer::class);
+        return $this->hasMany(TrainerPokemon::class);
     }
 }

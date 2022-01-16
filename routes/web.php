@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\PokemonController;
-use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\Pokemon\PokemonController;
+use App\Http\Controllers\Trainer\TrainerController;
 use Illuminate\Support\Facades\Route;
-use PhpParser\Builder\Trait_;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +23,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('pokemons', [PokemonController::class, 'getMyPokemons'])->name('myPokemons');
-Route::get('pokemon/show/{namePokemon}', [PokemonController::class, 'show'])->name('pokemon.show');
+Route::get('pokemons', [TrainerController::class, 'getMyPokemons'])->middleware(['auth'])->name('myPokemons');
+Route::get('pokemon/show/{trainerPokemonId}', [PokemonController::class, 'show'])->name('pokemon.show');
 Route::get('/capture', function (){
     return view('capturePokemon');
-})->name('capturePokemonView');
+})->middleware(['auth'])->name('capturePokemonView');
 
-Route::get('/dropPokemon/{pokemonId}', [TrainerController::class, 'postDropPokemon'])->name('dropPokemon');
-Route::post('/capturePokemon', [TrainerController::class, 'postCapturePokemon'])->name('capturePokemon');
+Route::get('/dropPokemon/{pokemonId}', [TrainerController::class, 'postDropPokemon'])->middleware(['auth'])->name('dropPokemon');
 
+Route::post('/capturePokemon', [TrainerController::class, 'postCapturePokemon'])->middleware(['auth'])->name('capturePokemon');
+Route::post('pokemon/nickname', [PokemonController::class, 'postNewNickName'])->middleware(['auth'])->name('nickNamePokemon');
 
 require __DIR__.'/auth.php';

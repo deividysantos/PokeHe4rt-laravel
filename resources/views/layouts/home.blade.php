@@ -16,11 +16,6 @@
     <div class="container">
         @yield('content')
     </div>
-
-    <footer>
-        Desenvolvido por Deividy Santos
-    </footer>
-
 </body>
 @yield('script')
 </html>

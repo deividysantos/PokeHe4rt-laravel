@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\Trainer\TrainerController;
 use App\Repositories\PokemonRepository;
 use App\Repositories\TrainerPokemonRepository;
 use App\Repositories\TrainerRepository;

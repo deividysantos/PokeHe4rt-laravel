@@ -25,8 +25,8 @@ class Trainer extends Authenticatable
         'remember_token',
     ];
 
-    public function pokemons()
+    public function trainerPokemon()
     {
-        return $this->belongsToMany(Pokemon::class, 'trainer_pokemon');
+        return $this->hasMany(TrainerPokemon::class);
     }
 }
