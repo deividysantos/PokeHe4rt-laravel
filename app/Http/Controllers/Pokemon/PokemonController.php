@@ -22,45 +22,21 @@ class PokemonController extends Controller
         $this->trainerPokemonRepository = $trainerPokemonRepository;
     }
 
-    public function index($idTrainer)
+    public function getShow(string $trainerPokemonId)
     {
-        $pokemons = $this->pokemonRepository->getAll();
-
-        $pokemons->map(function ($pokemon){
-            $pokemon->name = ucfirst($pokemon->name);
-        });
-
-        $types = $this->pokemonRepository->getTypes();
-
-        return view('app.pokemon.pokemonIndex', compact([
-            'pokemons',
-            'idTrainer',
-            'types'])
-        );
-    }
-
-    public function show(string $trainerPokemonId)
-    {
-        $pokemon = $this->trainerPokemonRepository->getPokemonId($trainerPokemonId);
+        $pokemon = $this->trainerPokemonRepository->getPokemonByTrainerPokemon($trainerPokemonId);
 
         return view('showPokemon', compact(['pokemon', 'trainerPokemonId']));
     }
 
-    public function Store(Request $request)
-    {
-        $this->pokemonRepository->create(strtolower($request['namePokemon']));
-
-        return redirect()->route('trainer.index');
-    }
-
-    public function postNewNickName(Request $request)
+    public function postNewNickname(Request $request)
     {
         $request->validate([
             'nickNamePokemon' => 'required|string',
             'trainerPokemonId' => 'required'
         ]);
 
-        $this->trainerPokemonRepository->editNickNamePokemon($request['trainerPokemonId'], $request['nickNamePokemon']);
+        $this->trainerPokemonRepository->editNicknamePokemon($request['trainerPokemonId'], $request['nickNamePokemon']);
 
         return view('myPokemons');
     }

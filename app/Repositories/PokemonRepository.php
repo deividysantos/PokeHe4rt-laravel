@@ -63,7 +63,7 @@ class PokemonRepository
 
     public function existByName($name): bool
     {
-        if(isset($this->getByName($name)[0]))
+        if($this->getByName($name))
             return true;
 
         return false;
@@ -71,7 +71,14 @@ class PokemonRepository
 
     public function getByName($name)
     {
-        return $this->model->where('name', $name)->get();
+        $pokemon = $this->model->where('name', $name)
+                ->get()
+                ->first();
+
+        if($pokemon)
+            return $pokemon;
+
+        return false;
     }
 
     public function getTypes()

@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\TrainerAlreadyExisits;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisteredUserRequest;
 use App\Models\Trainer;
 use App\Providers\RouteServiceProvider;
+use App\Repositories\TrainerRepository;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
+    private TrainerRepository $trainerRepository;
+
+    public function __construct(TrainerRepository $trainerRepository)
+    {
+        $this->trainerRepository = $trainerRepository;
+    }
+
     /**
      * Display the registration view.
      *
@@ -26,22 +34,13 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @param RegisteredUserRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application
      */
-    public function store(Request $request)
+    public function store(RegisteredUserRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'region' => ['required', 'string'],
-            'age' => ['required', 'numeric']
-        ]);
-
-        $trainer = Trainer::create([
+        //validation already done by RegisteredUserRequest
+        $trainer = $this->trainerRepository->create([
             'name' => $request->name,
             'email' => $request->email,
             'region' => $request->region,

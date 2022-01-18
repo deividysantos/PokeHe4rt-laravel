@@ -31,12 +31,13 @@ class TrainerController extends Controller
         return view('myPokemons');
     }
 
-    public function postDelete($idTrainer)
+    public function postDelete()
     {
+        $idTrainer = Auth::user()->id;
         $this->trainerPokemonRepository->deletePokemonsByTrainer($idTrainer);
         $this->trainerRepository->delete($idTrainer);
 
-        return Redirect()->Route('trainer.index', $idTrainer);
+        return Redirect()->Route('site.home');
     }
 
     public function postCapturePokemon(Request $request)
@@ -54,19 +55,17 @@ class TrainerController extends Controller
         $payload = [
             'nickName' => "",
             'trainer_id' => Auth::user()->id,
-            'pokemon_id' => $pokemon[0]->id
+            'pokemon_id' => $pokemon->id
         ];
 
         $this->trainerPokemonRepository->create($payload);
 
-        $trainer = $this->trainerRepository->getById(Auth::user()->id);
-
         return redirect()->route('myPokemons', [Auth::user()->region, Auth::user()->name]);
     }
 
-    public function postDropPokemon(string $pokemonId)
+    public function postDropPokemon(string $trainerPokemonId)
     {
-        $this->trainerPokemonRepository->dropPokemon(Auth::user()->id,$pokemonId);
+        $this->trainerPokemonRepository->dropPokemon($trainerPokemonId);
 
         return redirect()->route('myPokemons');
     }

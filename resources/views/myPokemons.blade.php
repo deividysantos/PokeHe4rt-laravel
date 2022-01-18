@@ -9,14 +9,14 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg pb-8 border-b border-gray-200">
-                    <div class="p-6 bg-white  grid grid-cols-3">
+                    <div class="p-6 bg-white  grid grid-cols-4">
 
                         @foreach(Auth::user()->trainerPokemon as $trainerPokemon)
 
                             <div class="flex flex-col flex-wrap shrink capitalize mx-5 mb-5 justify-self-center text-center">
 
                                 <a href="{{route('pokemon.show', $trainerPokemon->pokemon->name)}}">
-                                    <img class="border-b-2 border-solid border-indigo-600 min-h-full" src="{{$trainerPokemon->pokemon->image_url}}" alt="{{$trainerPokemon->pokemon->name}}">
+                                    <img class="pborder-b-2 border-solid border-indigo-600 min-h-full" src="{{$trainerPokemon->pokemon->image_url}}" alt="{{$trainerPokemon->pokemon->name}}">
                                 </a>
 
                                 <div class="flex flex-row justify-between">
@@ -45,7 +45,7 @@
                                                         </div>
                                                     </a>
 
-                                                    <a class="border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('dropPokemon',[$trainerPokemon->pokemon->id])}}">
+                                                    <a class="border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('dropPokemon',[$trainerPokemon->id])}}">
                                                         <div class="cursor-pointer">
                                                             <x-iconpark-bye-o class="ml-2 w-5 h-5"/>
                                                             Drop

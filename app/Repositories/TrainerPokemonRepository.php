@@ -19,13 +19,14 @@ class TrainerPokemonRepository
         return $this->model->create($payload);
     }
 
-    public function dropPokemon(int $trainerId, int $pokemonId):bool
+    public function dropPokemon(int $trainerPokemonId):bool
     {
-        $trainerPokemon = $this->model->where('trainer_id', $trainerId, 'and')
-            ->where('pokemon_id', $pokemonId)
-            ->first();
+        $trainerPokemon = $this->model->find($trainerPokemonId);
 
-        return $trainerPokemon->delete();
+        if($trainerPokemon)
+            return $trainerPokemon->delete();
+
+        return false;
     }
 
     public function deletePokemonsByTrainer(int $idTrainer)
@@ -38,12 +39,12 @@ class TrainerPokemonRepository
         });
     }
 
-    public function getPokemonId(string $trainerPokemonId)
+    public function getPokemonByTrainerPokemon(string $trainerPokemonId)
     {
         return $this->model->find($trainerPokemonId);
     }
 
-    public function editNickNamePokemon(string $trainerPokemonId, string $nickName)
+    public function editNicknamePokemon(string $trainerPokemonId, string $nickName)
     {
         $trainerPokemon = $this->model->find($trainerPokemonId);
 
