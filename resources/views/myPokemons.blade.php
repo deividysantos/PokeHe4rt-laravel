@@ -38,14 +38,14 @@
                                             <x-slot name="content">
 
                                                 <div class="flex flex-row justify-evenly">
-                                                    <a class="hover:bg-gray-100 p-1" href="{{route('pokemon.show',$trainerPokemon->id)}}">
+                                                    <a class="hover:border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('pokemon.show',$trainerPokemon->id)}}">
                                                         <div class="cursor-pointer">
                                                             <x-iconpark-previewopen-o class="ml-3 w-5 h-5"/>
                                                             Show
                                                         </div>
                                                     </a>
 
-                                                    <a class="hover:bg-gray-100 p-1" href="{{route('dropPokemon',[$trainerPokemon->pokemon->id])}}">
+                                                    <a class="border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('dropPokemon',[$trainerPokemon->pokemon->id])}}">
                                                         <div class="cursor-pointer">
                                                             <x-iconpark-bye-o class="ml-2 w-5 h-5"/>
                                                             Drop

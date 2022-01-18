@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function (){
-    return view('site.homepage');
+    return view('home');
 })->name('site.home');
 
 Route::get('/dashboard', function () {
@@ -24,7 +24,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('pokemons', [TrainerController::class, 'getMyPokemons'])->middleware(['auth'])->name('myPokemons');
-Route::get('pokemon/show/{trainerPokemonId}', [PokemonController::class, 'show'])->name('pokemon.show');
+Route::get('pokemon/show/{trainerPokemonId}', [PokemonController::class, 'show'])->where('trainerPokemonId', '[1-9]+')->name('pokemon.show');
 Route::get('/capture', function (){
     return view('capturePokemon');
 })->middleware(['auth'])->name('capturePokemonView');
