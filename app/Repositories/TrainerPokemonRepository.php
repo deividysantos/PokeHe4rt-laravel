@@ -39,16 +39,21 @@ class TrainerPokemonRepository
         });
     }
 
-    public function getPokemonByTrainerPokemon(string $trainerPokemonId)
+    public function getById(string $trainerPokemonId)
     {
         return $this->model->find($trainerPokemonId);
     }
 
-    public function editNicknamePokemon(string $trainerPokemonId, string $nickName)
+    public function getPokemonByTrainerPokemon(string $trainerPokemonId)
+    {
+        return $this->model->find($trainerPokemonId)->pokemon;
+    }
+
+    public function editNicknamePokemon(string $trainerPokemonId, string $nickname)
     {
         $trainerPokemon = $this->model->find($trainerPokemonId);
 
-        $trainerPokemon->nickName = $nickName;
+        $trainerPokemon->nickName = $nickname;
 
         $trainerPokemon->save();
     }

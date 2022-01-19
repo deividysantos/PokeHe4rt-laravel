@@ -6,6 +6,8 @@ use App\Repositories\PokemonRepository;
 use App\Repositories\TrainerPokemonRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\Diff\Exception;
 use function redirect;
 use function view;
 
@@ -24,20 +26,25 @@ class PokemonController extends Controller
 
     public function getShow(string $trainerPokemonId)
     {
-        $pokemon = $this->trainerPokemonRepository->getPokemonByTrainerPokemon($trainerPokemonId);
+        $trainerPokemon = $this->trainerPokemonRepository->getById($trainerPokemonId);
 
-        return view('showPokemon', compact(['pokemon', 'trainerPokemonId']));
+        if($trainerPokemon['trainer_id'] != Auth::User()->id)
+                return redirect()->route('myPokemonsView');
+
+        $payload = $this->pokemonRepository->formatDataToShowPokemon($trainerPokemon->pokemon->name);
+
+        return view('showPokemon', compact(['payload', 'trainerPokemon']));
     }
 
     public function postNewNickname(Request $request)
     {
         $request->validate([
-            'nickNamePokemon' => 'required|string',
+            'nicknamePokemon' => 'required|string',
             'trainerPokemonId' => 'required'
         ]);
 
-        $this->trainerPokemonRepository->editNicknamePokemon($request['trainerPokemonId'], $request['nickNamePokemon']);
+        $this->trainerPokemonRepository->editNicknamePokemon($request['trainerPokemonId'], $request['nicknamePokemon']);
 
-        return view('myPokemons');
+        return redirect()->route('myPokemonsView');
     }
 }

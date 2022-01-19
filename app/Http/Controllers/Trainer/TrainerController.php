@@ -26,11 +26,6 @@ class TrainerController extends Controller
         $this->trainerPokemonRepository = $trainerPokemonRepository;
     }
 
-    public function getMyPokemons()
-    {
-        return view('myPokemons');
-    }
-
     public function postDelete()
     {
         $idTrainer = Auth::user()->id;
@@ -60,13 +55,18 @@ class TrainerController extends Controller
 
         $this->trainerPokemonRepository->create($payload);
 
-        return redirect()->route('myPokemons', [Auth::user()->region, Auth::user()->name]);
+        return redirect()->route('myPokemonsView', [Auth::user()->region, Auth::user()->name]);
     }
 
     public function postDropPokemon(string $trainerPokemonId)
     {
+        $trainerPokemon = $this->trainerPokemonRepository->getById($trainerPokemonId);
+
+        if($trainerPokemon['trainer_id'] != Auth::User()->id)
+            return redirect()->route('myPokemonsView');
+
         $this->trainerPokemonRepository->dropPokemon($trainerPokemonId);
 
-        return redirect()->route('myPokemons');
+        return redirect()->route('myPokemonsView');
     }
 }

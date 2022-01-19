@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Pokemon;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Http;
 use Symfony\Component\Routing\Exception\InvalidArgumentException;
 use function view;
 
@@ -31,37 +32,31 @@ class PokemonRepository
 
         $pokemon = $this->getDataPokemon($pokemonName);
 
-        if(!$pokemon)
-            throw new InvalidArgumentException('Pokemon not exist!',404);
-
         $payload =[
             'name' => $pokemonName,
-            'image_url' => $pokemon->sprites->front_default,
-            'attribute' => $pokemon->types[0]->type->name
+            'image_url' => $pokemon['sprites']['front_default'],
+            'attribute' => $pokemon['types'][0]['type']['name']
         ];
 
         $this->model->create($payload);
         return true;
     }
 
-    public function getDataPokemon($name)
+    public function getDataPokemon(string $name)
     {
         $urlPokeApi = 'https://pokeapi.co/api/v2/pokemon/';
 
         $url = $urlPokeApi . $name;
 
-        try
-        {
-            $response = json_decode(file_get_contents($url));
-        }catch (\ErrorException)
-        {
-            return false;
-        }
+        $response = Http::get($url);
 
-        return $response;
+        if($response->ok())
+            return $response->json();
+
+        return false;
     }
 
-    public function existByName($name): bool
+    public function existByName(string $name): bool
     {
         if($this->getByName($name))
             return true;
@@ -69,7 +64,7 @@ class PokemonRepository
         return false;
     }
 
-    public function getByName($name)
+    public function getByName(string $name)
     {
         $pokemon = $this->model->where('name', $name)
                 ->get()
@@ -81,27 +76,50 @@ class PokemonRepository
         return false;
     }
 
-    public function getTypes()
+    public function formatDataToShowPokemon(string $namePokemon)
     {
-        return $types = [
-            'bug' => '#089933',
-            'dark' => '#3b3736',
-            'dragon' => '#6b98ca',
-            'electric' => '#d6da00',
-            'fairy' => '#da2a5d',
-            'fighting' => '#b85d21',
-            'fire' => '#de3d24',
-            'flying' => '#5f8cce',
-            'ghost' => '#6f00b7',
-            'grass' => '#03c900',
-            'ground' => '#a85729',
-            'ice' => '#22cbda',
-            'normal' => '#997597',
-            'poison' => '#3f046e',
-            'psychic' => '#d9107a',
-            'rock' => '#582300',
-            'steel' => '#007e66',
-            'water' => '#2e36e1'
+        $dataPokemon = $this->getDataPokemon($namePokemon);
+
+        return [
+            'name' => $dataPokemon['name'],
+            'image_url' => $dataPokemon['sprites']['front_default'],
+            'height' => $dataPokemon['height'],
+            'weight' => $dataPokemon['weight'],
+            'abilities' => $this->getAbilities($dataPokemon['abilities']),
+            'stats' => $this->getStats($dataPokemon['stats']),
+            'types' => $this->getTypes($dataPokemon['types'])
         ];
+    }
+
+    private function getAbilities(mixed $abilities)
+    {
+        $payload = [];
+        foreach ($abilities as $ability)
+        {
+            $payload[] = $ability['ability']['name'];
+        }
+
+        return $payload;
+    }
+
+    private function getStats(mixed $stats)
+    {
+        $payload = [];
+        foreach ($stats as $stat)
+        {
+            $payload[$stat['stat']['name']] = $stat['base_stat'];
+        }
+
+        return $payload;
+    }
+
+    private function getTypes(mixed $types)
+    {
+        $payload = [];
+        foreach ($types as $type)
+        {
+            $payload[] = $type['type']['name'];
+        }
+        return $payload;
     }
 }

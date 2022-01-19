@@ -15,7 +15,7 @@
 
                             <div class="flex flex-col flex-wrap shrink capitalize mx-5 mb-5 justify-self-center text-center">
 
-                                <a href="{{route('pokemon.show', $trainerPokemon->pokemon->name)}}">
+                                <a>
                                     <img class="pborder-b-2 border-solid border-indigo-600 min-h-full" src="{{$trainerPokemon->pokemon->image_url}}" alt="{{$trainerPokemon->pokemon->name}}">
                                 </a>
 
@@ -38,7 +38,7 @@
                                             <x-slot name="content">
 
                                                 <div class="flex flex-row justify-evenly">
-                                                    <a class="hover:border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('pokemon.show',$trainerPokemon->id)}}">
+                                                    <a class="hover:border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('showPokemonView',$trainerPokemon->id)}}">
                                                         <div class="cursor-pointer">
                                                             <x-iconpark-previewopen-o class="ml-3 w-5 h-5"/>
                                                             Show

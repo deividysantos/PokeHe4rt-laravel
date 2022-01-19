@@ -39,8 +39,8 @@
 
             @else
 
-                <a href="{{route('dashboard')}}" class="border-b-2 border-transparent hover:border-indigo-600">
-                    Dashboard
+                <a href="{{route('myPokemonsView')}}" class="border-b-2 border-transparent hover:border-indigo-600">
+                    My Pokemons
                 </a>
 
                 <form class="ml-5 border-b-2 border-transparent hover:border-indigo-600" action="{{route('logout')}}" method="POST">
