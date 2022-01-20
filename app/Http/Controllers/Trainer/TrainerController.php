@@ -13,26 +13,14 @@ use function view;
 
 class TrainerController extends Controller
 {
-    private TrainerRepository $trainerRepository;
     private PokemonRepository $pokemonRepository;
     private TrainerPokemonRepository $trainerPokemonRepository;
 
-    public function __construct(TrainerRepository $trainerRepository,
-                                PokemonRepository $pokemonRepository,
+    public function __construct(PokemonRepository $pokemonRepository,
                                 TrainerPokemonRepository $trainerPokemonRepository)
     {
-        $this->trainerRepository = $trainerRepository;
         $this->pokemonRepository = $pokemonRepository;
         $this->trainerPokemonRepository = $trainerPokemonRepository;
-    }
-
-    public function postDelete()
-    {
-        $idTrainer = Auth::user()->id;
-        $this->trainerPokemonRepository->deletePokemonsByTrainer($idTrainer);
-        $this->trainerRepository->delete($idTrainer);
-
-        return Redirect()->Route('site.home');
     }
 
     public function postCapturePokemon(Request $request)

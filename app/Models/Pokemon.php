@@ -12,7 +12,6 @@ class Pokemon extends Model
         'id',
         'name',
         'image_url',
-        'attribute'
     ];
 
     public function trainerPokemon()

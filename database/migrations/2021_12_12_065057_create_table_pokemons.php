@@ -17,7 +17,6 @@ class CreateTablePokemons extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('image_url');
-            $table->string('attribute');
             $table->timestamps();
         });
     }

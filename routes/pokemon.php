@@ -13,7 +13,7 @@ Route::get('pokemons', function ()
 
 Route::get('pokemon/show/{trainerPokemonId}', [PokemonController::class, 'getShow'])
     ->middleware(['auth'])
-    ->where('trainerPokemonId', '[0-9]+')
+    ->where('trainerPokemonId', '^[0-9]+')
     ->name('showPokemonView');
 
 Route::get('/capture', function (){

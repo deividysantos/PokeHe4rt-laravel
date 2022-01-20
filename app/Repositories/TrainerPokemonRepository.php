@@ -29,16 +29,6 @@ class TrainerPokemonRepository
         return false;
     }
 
-    public function deletePokemonsByTrainer(int $idTrainer)
-    {
-        $trainerPokemons = $this->model->where('trainer_id', $idTrainer)->get();
-
-        $trainerPokemons->map(function ($trainerPokemon)
-        {
-            $trainerPokemon->delete();
-        });
-    }
-
     public function getById(string $trainerPokemonId)
     {
         return $this->model->find($trainerPokemonId);
