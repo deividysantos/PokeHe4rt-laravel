@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Pokemon\PokemonController;
-use App\Http\Controllers\Trainer\TrainerController;
+use App\Http\Controllers\Pokemon\CapturedPokemonController;
+use App\Http\Controllers\Pokemon\DropPokemonController;
+use App\Http\Controllers\Pokemon\ProfilePokemonController;
+use App\Http\Controllers\Pokemon\RegisteredNicknameController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('pokemons', function ()
@@ -11,7 +13,7 @@ Route::get('pokemons', function ()
     ->middleware(['auth'])
     ->name('myPokemonsView');
 
-Route::get('pokemon/show/{trainerPokemonId}', [PokemonController::class, 'getShow'])
+Route::get('pokemon/show/{trainerPokemonId}', [ProfilePokemonController::class, 'getShow'])
     ->middleware(['auth'])
     ->where('trainerPokemonId', '^[0-9]+')
     ->name('showPokemonView');
@@ -22,15 +24,15 @@ Route::get('/capture', function (){
     ->middleware(['auth'])
     ->name('capturePokemonView');
 
-Route::get('/dropPokemon/{trainerPokemonId}', [TrainerController::class, 'postDropPokemon'])
+Route::get('/dropPokemon/{trainerPokemonId}', [DropPokemonController::class, 'postDropPokemon'])
     ->middleware(['auth'])
     ->where('trainerPokemonId', '^[0-9]+')
     ->name('dropPokemon');
 
-Route::post('/capturePokemon', [TrainerController::class, 'postCapturePokemon'])
+Route::post('/capturePokemon', [CapturedPokemonController::class, 'postCapturePokemon'])
     ->middleware(['auth'])
     ->name('capturePokemon');
 
-Route::post('pokemon/nickname', [PokemonController::class, 'postNewNickname'])
+Route::post('pokemon/nickname', [RegisteredNicknameController::class, 'postNewNickname'])
     ->middleware(['auth'])
     ->name('nicknamePokemon');

@@ -4,18 +4,18 @@ namespace App\Repositories;
 
 use App\Models\Pokemon;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Http;
-use Symfony\Component\Routing\Exception\InvalidArgumentException;
-use function view;
+use App\Services\PokemonService;
 
-class PokemonRepository
+class PokemonRepository implements IPokemonRepository
 {
-    protected Pokemon $model;
+    private Pokemon $model;
+    private PokemonService $pokemonService;
 
-    public function __construct(Pokemon $model)
+    public function __construct(Pokemon $model,
+                                PokemonService $pokemonService)
     {
         $this->model = $model;
+        $this->pokemonService = $pokemonService;
     }
 
     public function getAll()
@@ -23,14 +23,19 @@ class PokemonRepository
         return $this->model->all();
     }
 
-    public function create(string $pokemonName)
+    public function create(array $payload)
+    {
+        return $this->model->create($payload);
+    }
+
+    public function createIfPokemonNotExist(string $pokemonName): bool
     {
         $pokemonName = strtolower($pokemonName);
 
         if( $this->existByName($pokemonName) )
             return true;
 
-        $pokemon = $this->getDataPokemon($pokemonName);
+        $pokemon = $this->pokemonService->getDataPokemon($pokemonName);
 
         $payload =[
             'name' => $pokemonName,
@@ -38,22 +43,7 @@ class PokemonRepository
             'attribute' => $pokemon['types'][0]['type']['name']
         ];
 
-        $this->model->create($payload);
-        return true;
-    }
-
-    public function getDataPokemon(string $name)
-    {
-        $urlPokeApi = 'https://pokeapi.co/api/v2/pokemon/';
-
-        $url = $urlPokeApi . $name;
-
-        $response = Http::get($url);
-
-        if($response->ok())
-            return $response->json();
-
-        return false;
+        return$this->create($payload);
     }
 
     public function existByName(string $name): bool
@@ -64,7 +54,7 @@ class PokemonRepository
         return false;
     }
 
-    public function getByName(string $name)
+    public function getByName(string $name): bool
     {
         $pokemon = $this->model->where('name', $name)
                 ->get()
@@ -76,9 +66,24 @@ class PokemonRepository
         return false;
     }
 
-    public function formatDataToShowPokemon(string $namePokemon)
+    function getById(string $id)
     {
-        $dataPokemon = $this->getDataPokemon($namePokemon);
+        // TODO: Implement getById() method.
+    }
+
+    function update()
+    {
+        // TODO: Implement update() method.
+    }
+
+    function delete(array $payload)
+    {
+        // TODO: Implement delete() method.
+    }
+
+    public function formatDataToShowPokemon(string $namePokemon):array
+    {
+        $dataPokemon = $this->pokemonService->getDataPokemon($namePokemon);
 
         return [
             'name' => $dataPokemon['name'],
@@ -91,7 +96,7 @@ class PokemonRepository
         ];
     }
 
-    private function getAbilities(mixed $abilities)
+    private function getAbilities(array $abilities)
     {
         $payload = [];
         foreach ($abilities as $ability)
@@ -102,7 +107,7 @@ class PokemonRepository
         return $payload;
     }
 
-    private function getStats(mixed $stats)
+    private function getStats(array $stats)
     {
         $payload = [];
         foreach ($stats as $stat)
@@ -113,7 +118,7 @@ class PokemonRepository
         return $payload;
     }
 
-    private function getTypes(mixed $types)
+    private function getTypes(array $types)
     {
         $payload = [];
         foreach ($types as $type)

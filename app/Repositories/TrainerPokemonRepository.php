@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\TrainerPokemon;
 use Illuminate\Support\Facades\DB;
 
-class TrainerPokemonRepository
+class TrainerPokemonRepository implements ITrainerPokemonRepository
 {
     protected TrainerPokemon $model;
 
@@ -14,7 +14,7 @@ class TrainerPokemonRepository
         $this->model = $model;
     }
 
-    public function create($payload)
+    public function create(array $payload):bool
     {
         return $this->model->create($payload);
     }
@@ -34,17 +34,15 @@ class TrainerPokemonRepository
         return $this->model->find($trainerPokemonId);
     }
 
-    public function getPokemonByTrainerPokemon(string $trainerPokemonId)
-    {
-        return $this->model->find($trainerPokemonId)->pokemon;
-    }
-
     public function editNicknamePokemon(string $trainerPokemonId, string $nickname)
     {
         $trainerPokemon = $this->model->find($trainerPokemonId);
 
+        if(!$trainerPokemon)
+            return false;
+
         $trainerPokemon->nickName = $nickname;
 
-        $trainerPokemon->save();
+        return $trainerPokemon->save();
     }
 }

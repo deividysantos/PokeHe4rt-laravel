@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Services\PokemonService;
+use App\Repositories\TrainerPokemonRepository;
+use App\Repositories\TrainerRepository;
 use Illuminate\Support\ServiceProvider;
-use iPokemonRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('App\Repositories\ITrainerRepository', TrainerRepository::class);
 
+        $this->app->bind('App\Repositories\ITrainerPokemonRepository', TrainerPokemonRepository::class);
     }
 
     /**

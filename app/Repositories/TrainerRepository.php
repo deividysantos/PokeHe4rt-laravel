@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Trainer;
 
-class TrainerRepository
+class TrainerRepository implements ITrainerRepository
 {
     protected Trainer $model;
 
@@ -13,7 +13,7 @@ class TrainerRepository
         $this->model = $model;
     }
 
-    public function create($payload)
+    public function create(array $payload)
     {
         return $this->model->create($payload);
     }

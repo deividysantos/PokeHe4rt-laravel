@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Pokemon\PokemonController;
-use App\Http\Controllers\Trainer\TrainerController;
 use Illuminate\Support\Facades\Route;
 
 /*

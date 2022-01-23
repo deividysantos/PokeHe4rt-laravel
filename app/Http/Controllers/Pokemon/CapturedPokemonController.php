@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Trainer;
+namespace App\Http\Controllers\Pokemon;
 
+use App\Http\Controllers\Controller;
+use App\Repositories\ITrainerPokemonRepository;
 use App\Repositories\PokemonRepository;
-use App\Repositories\TrainerPokemonRepository;
-use App\Repositories\TrainerRepository;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use function redirect;
 use function view;
 
-class TrainerController extends Controller
+class CapturedPokemonController extends Controller
 {
     private PokemonRepository $pokemonRepository;
-    private TrainerPokemonRepository $trainerPokemonRepository;
+    private ITrainerPokemonRepository $trainerPokemonRepository;
 
     public function __construct(PokemonRepository $pokemonRepository,
-                                TrainerPokemonRepository $trainerPokemonRepository)
+                                ITrainerPokemonRepository $trainerPokemonRepository)
     {
         $this->pokemonRepository = $pokemonRepository;
         $this->trainerPokemonRepository = $trainerPokemonRepository;
@@ -26,7 +25,7 @@ class TrainerController extends Controller
     public function postCapturePokemon(Request $request)
     {
         try{
-            $this->pokemonRepository->create($request['namePokemon']);
+            $this->pokemonRepository->createIfPokemonNotExist($request['namePokemon']);
         }catch (\InvalidArgumentException $e)
         {
             $messageError = $e->getMessage();
@@ -44,17 +43,5 @@ class TrainerController extends Controller
         $this->trainerPokemonRepository->create($payload);
 
         return redirect()->route('myPokemonsView', [Auth::user()->region, Auth::user()->name]);
-    }
-
-    public function postDropPokemon(string $trainerPokemonId)
-    {
-        $trainerPokemon = $this->trainerPokemonRepository->getById($trainerPokemonId);
-
-        if($trainerPokemon['trainer_id'] != Auth::User()->id)
-            return redirect()->route('myPokemonsView');
-
-        $this->trainerPokemonRepository->dropPokemon($trainerPokemonId);
-
-        return redirect()->route('myPokemonsView');
     }
 }

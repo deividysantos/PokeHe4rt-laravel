@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Exceptions\TrainerAlreadyExisits;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisteredUserRequest;
-use App\Models\Trainer;
 use App\Providers\RouteServiceProvider;
-use App\Repositories\TrainerRepository;
+use App\Repositories\ITrainerRepository;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
 {
-    private TrainerRepository $trainerRepository;
+    private ITrainerRepository $trainerRepository;
 
-    public function __construct(TrainerRepository $trainerRepository)
+    public function __construct(ITrainerRepository $trainerRepository)
     {
         $this->trainerRepository = $trainerRepository;
     }
