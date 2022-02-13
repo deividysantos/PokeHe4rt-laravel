@@ -20,7 +20,7 @@ class RegisteredNicknameController extends Controller
     public function postNewNickname(Request $request)
     {
         $request->validate([
-            'nicknamePokemon' => 'required|string',
+            'nicknamePokemon' => 'required| max:20',
             'trainerPokemonId' => 'required'
         ]);
 

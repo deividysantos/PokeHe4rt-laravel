@@ -13,8 +13,8 @@ class TrainerRepository implements ITrainerRepository
         $this->model = $model;
     }
 
-    public function create(array $payload)
+    public function create(array $trainerData)
     {
-        return $this->model->create($payload);
+        return $this->model->create($trainerData);
     }
 }

@@ -7,8 +7,6 @@ use App\Repositories\ITrainerPokemonRepository;
 use App\Repositories\PokemonRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use function redirect;
-use function view;
 
 class CapturedPokemonController extends Controller
 {
@@ -24,6 +22,13 @@ class CapturedPokemonController extends Controller
 
     public function postCapturePokemon(Request $request)
     {
+
+        $request->validate(
+            [
+                'namePokemon' => 'required | max:255'
+            ]
+        );
+
         try{
             $this->pokemonRepository->createIfPokemonNotExist($request['namePokemon']);
         }catch (\InvalidArgumentException $e)

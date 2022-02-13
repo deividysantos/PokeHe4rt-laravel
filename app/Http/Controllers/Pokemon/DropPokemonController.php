@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Pokemon;
 
-use App\Repositories\PokemonRepository;
 use App\Repositories\TrainerPokemonRepository;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use function redirect;
 
 class DropPokemonController extends Controller
 {
@@ -17,7 +15,7 @@ class DropPokemonController extends Controller
          $this->trainerPokemonRepository = $trainerPokemonRepository;
     }
 
-    public function postDropPokemon(string $trainerPokemonId)
+    public function getDropPokemon(string $trainerPokemonId)
     {
         $trainerPokemon = $this->trainerPokemonRepository->getById($trainerPokemonId);
 

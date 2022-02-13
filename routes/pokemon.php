@@ -24,7 +24,7 @@ Route::get('/capture', function (){
     ->middleware(['auth'])
     ->name('capturePokemonView');
 
-Route::get('/dropPokemon/{trainerPokemonId}', [DropPokemonController::class, 'postDropPokemon'])
+Route::get('/dropPokemon/{trainerPokemonId}', [DropPokemonController::class, 'getDropPokemon'])
     ->middleware(['auth'])
     ->where('trainerPokemonId', '^[0-9]+')
     ->name('dropPokemon');

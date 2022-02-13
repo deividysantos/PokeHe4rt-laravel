@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Http;
 
 class PokemonService
 {
-    public function getDataPokemon(string $name)
+    public function getDataPokemon(string $namePokemon)
     {
         $urlPokeApi = 'https://pokeapi.co/api/v2/pokemon/';
 
-        $url = $urlPokeApi . $name;
+        $url = $urlPokeApi . $namePokemon;
 
         $response = Http::get($url);
 

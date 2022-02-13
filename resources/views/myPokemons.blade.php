@@ -1,25 +1,27 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-button>
-            <a href="{{route('capturePokemonView')}}">Capture a new pokemon</a>
-        </x-button>
+
+        <a href="{{route('capturePokemonView')}}">
+            <x-button>
+                Capture a new pokemon
+            </x-button>
+        </a>
     </x-slot>
 
     @if(Auth::user()->trainerPokemon->count())
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg pb-8 border-b border-gray-200">
-                    <div class="p-6 bg-white  grid grid-cols-4">
+                    <div class="p-6 pb-24 bg-white grid grid-cols-4">
 
                         @foreach(Auth::user()->trainerPokemon as $trainerPokemon)
 
-                            <div class="flex flex-col flex-wrap shrink capitalize mx-5 mb-5 justify-self-center text-center">
+                            <div class="flex flex-col flex-wrap capitalize items-center mt-4">
 
-                                <a>
-                                    <img class="pborder-b-2 border-solid border-indigo-600 min-h-full" src="{{$trainerPokemon->pokemon->image_url}}" alt="{{$trainerPokemon->pokemon->name}}">
-                                </a>
+                                <img class="w-32 h-32" src="{{$trainerPokemon->pokemon->image_url}}" alt="{{$trainerPokemon->pokemon->name}}">
 
-                                <div class="flex flex-row justify-between">
+
+                                <div class="flex flex-row justify-center">
 
                                     @if($trainerPokemon->nickName == "")
                                         <p>{{$trainerPokemon->pokemon->name}}</p>
@@ -31,7 +33,7 @@
                                         <x-dropdown>
                                             <x-slot name="trigger">
                                                 <button class="focus:outline-none">
-                                                    <x-iconpark-down-o  class="w-5 h-5 text-gray-400 hover:text-black"/>
+                                                    <x-iconpark-down-o  class="w-6 h-6 text-gray-500 hover:text-indigo-900"/>
                                                 </button>
                                             </x-slot>
 

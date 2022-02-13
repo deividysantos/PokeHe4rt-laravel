@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="text-center mx-auto mt-40  w-ful h-full bg-indigo-100">
-        <div class="border-4 border-indigo-100">
+    <div class="text-center mx-auto  w-ful h-full">
+        <div class="mt-20">
             <div class="py-2">
                 <form class="flex flex-row justify-center" action="{{route('nicknamePokemon')}}" method="POST">
                     @csrf
@@ -14,8 +14,8 @@
 
                         <input type="hidden" name="trainerPokemonId" value="{{$trainerPokemon->id}}">
                     </div>
-                    <div class="ml-2">
-                        <button class="w-8 h-8" onclick="submit()"><x-iconpark-saveone-o class=" pt-6"/></button>
+                    <div class="ml-2 mt-6">
+                        <button class="w-8 h-8" onclick="submit()"><x-iconpark-saveone-o/></button>
                     </div>
                 </form>
             </div>

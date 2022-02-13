@@ -23,9 +23,9 @@ class PokemonRepository implements IPokemonRepository
         return $this->model->all();
     }
 
-    public function create(array $payload)
+    public function create(array $pokemonData)
     {
-        return $this->model->create($payload);
+        return $this->model->create($pokemonData);
     }
 
     public function createIfPokemonNotExist(string $pokemonName): bool
@@ -43,47 +43,28 @@ class PokemonRepository implements IPokemonRepository
             'attribute' => $pokemon['types'][0]['type']['name']
         ];
 
-        return$this->create($payload);
+        gettype($this->create($payload));
+        return true;
     }
 
-    public function existByName(string $name): bool
+    public function existByName(string $pokemonName): bool
     {
-        if($this->getByName($name))
+        if($this->getByName($pokemonName))
             return true;
 
         return false;
     }
 
-    public function getByName(string $name): bool
+    public function getByName(string $pokemonName)
     {
-        $pokemon = $this->model->where('name', $name)
+        return $this->model->where('name', $pokemonName)
                 ->get()
                 ->first();
-
-        if($pokemon)
-            return $pokemon;
-
-        return false;
     }
 
-    function getById(string $id)
+    public function formatDataToShowPokemon(string $pokemonName):array
     {
-        // TODO: Implement getById() method.
-    }
-
-    function update()
-    {
-        // TODO: Implement update() method.
-    }
-
-    function delete(array $payload)
-    {
-        // TODO: Implement delete() method.
-    }
-
-    public function formatDataToShowPokemon(string $namePokemon):array
-    {
-        $dataPokemon = $this->pokemonService->getDataPokemon($namePokemon);
+        $dataPokemon = $this->pokemonService->getDataPokemon($pokemonName);
 
         return [
             'name' => $dataPokemon['name'],

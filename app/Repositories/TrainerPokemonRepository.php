@@ -14,9 +14,10 @@ class TrainerPokemonRepository implements ITrainerPokemonRepository
         $this->model = $model;
     }
 
-    public function create(array $payload):bool
+    public function create(array $trainerPokemonData):bool
     {
-        return $this->model->create($payload);
+        echo gettype($this->model->create($trainerPokemonData));
+        return true;
     }
 
     public function dropPokemon(int $trainerPokemonId):bool
@@ -34,14 +35,14 @@ class TrainerPokemonRepository implements ITrainerPokemonRepository
         return $this->model->find($trainerPokemonId);
     }
 
-    public function editNicknamePokemon(string $trainerPokemonId, string $nickname)
+    public function editNicknamePokemon(string $trainerPokemonId, string $nicknamePokemon)
     {
         $trainerPokemon = $this->model->find($trainerPokemonId);
 
         if(!$trainerPokemon)
             return false;
 
-        $trainerPokemon->nickName = $nickname;
+        $trainerPokemon->nickName = $nicknamePokemon;
 
         return $trainerPokemon->save();
     }
