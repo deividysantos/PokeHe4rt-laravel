@@ -16,7 +16,6 @@ class CreateTrainerPokemonTable extends Migration
         Schema::create('trainer_pokemon', function (Blueprint $table) {
             $table->id();
             $table->string('nickName')->nullable();
-
             $table->foreignId('trainer_id')->references('id')->on('trainers');
             $table->foreignId('pokemon_id')->references('id')->on('pokemons');
             $table->timestamps();
