@@ -3,7 +3,7 @@
 use App\Http\Controllers\Pokemon\CapturedPokemonController;
 use App\Http\Controllers\Pokemon\DropPokemonController;
 use App\Http\Controllers\Pokemon\ProfilePokemonController;
-use App\Http\Controllers\Pokemon\RegisteredNicknameController;
+use App\Http\Controllers\Pokemon\RegisterNicknameController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('pokemons', function ()
@@ -31,6 +31,6 @@ Route::post('/capturePokemon', [CapturedPokemonController::class, 'postCapturePo
     ->middleware(['auth'])
     ->name('capturePokemon');
 
-Route::post('pokemon/nickname', [RegisteredNicknameController::class, 'postNewNickname'])
+Route::post('pokemon/nickname', [RegisterNicknameController::class, 'postNewNickname'])
     ->middleware(['auth'])
     ->name('nicknamePokemon');

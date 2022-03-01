@@ -22,13 +22,7 @@ class CapturedPokemonController extends Controller
 
     public function postCapturePokemon(CapturedPokemonRequest $request)
     {
-        try{
-            $this->pokemonService->createIfPokemonNotExist($request['pokemonName']);
-        }catch (PokemonNameNotExist $e)
-        {
-            $messageError = $e->getMessage();
-            return view('error', compact('messageError'));
-        }
+        $this->pokemonService->create($request['pokemonName']);
 
         $pokemon = $this->pokemonRepository->getByName($request['pokemonName']);
 

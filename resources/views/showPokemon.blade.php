@@ -2,6 +2,7 @@
     <div class="text-center mx-auto  w-ful h-full">
         <div class="mt-20">
             <div class="py-2">
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 <form class="flex flex-row justify-center" action="{{route('nicknamePokemon')}}" method="POST">
                     @csrf
                     <div>
