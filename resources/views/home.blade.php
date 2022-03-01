@@ -16,7 +16,7 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
-        <title>PokeHe4rt - @yield('title')</title>
+        <title>PokeHe4rt</title>
     </head>
 <body>
     <header class="flex flex-row flex-wrap justify-between bg-white shadow">

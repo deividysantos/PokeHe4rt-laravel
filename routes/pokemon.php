@@ -7,9 +7,7 @@ use App\Http\Controllers\Pokemon\RegisteredNicknameController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('pokemons', function ()
-{
-    return view('myPokemons');
-})
+{return view('myPokemons');})
     ->middleware(['auth'])
     ->name('myPokemonsView');
 
@@ -24,7 +22,7 @@ Route::get('/capture', function (){
     ->middleware(['auth'])
     ->name('capturePokemonView');
 
-Route::get('/dropPokemon/{trainerPokemonId}', [DropPokemonController::class, 'getDropPokemon'])
+Route::get('/dropPokemon/{trainerPokemonId}', [DropPokemonController::class, 'deleteDropPokemon'])
     ->middleware(['auth'])
     ->where('trainerPokemonId', '^[0-9]+')
     ->name('dropPokemon');

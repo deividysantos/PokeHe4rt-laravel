@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use App\Models\TrainerPokemon;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\Contracts\ITrainerPokemonRepository;
 
-class TrainerPokemonRepository implements ITrainerPokemonRepository
+class TrainerPokemonRepositoryEloquent implements ITrainerPokemonRepository
 {
-    protected TrainerPokemon $model;
-
-    public function __construct(TrainerPokemon $model)
+    public function __construct(
+        private TrainerPokemon $model)
     {
-        $this->model = $model;
     }
 
     public function create(array $trainerPokemonData):bool

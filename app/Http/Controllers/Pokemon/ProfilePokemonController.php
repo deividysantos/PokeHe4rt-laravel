@@ -3,21 +3,17 @@
 namespace App\Http\Controllers\Pokemon;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\ITrainerPokemonRepository;
-use App\Repositories\PokemonRepository;
-use App\Services\PokemonService;
+use App\Repositories\Contracts\ITrainerPokemonRepository;
+use App\Services\Contract\IPokemonService;
 use Illuminate\Support\Facades\Auth;
 
 class ProfilePokemonController extends Controller
 {
-    private ITrainerPokemonRepository $trainerPokemonRepository;
-    private PokemonRepository $pokemonRepository;
-
-    public function __construct(ITrainerPokemonRepository $trainerPokemonRepository,
-                                PokemonRepository $pokemonRepository)
+    public function __construct(
+        private IPokemonService $pokemonService,
+        private ITrainerPokemonRepository $trainerPokemonRepository,
+    )
     {
-        $this->trainerPokemonRepository = $trainerPokemonRepository;
-        $this->pokemonRepository = $pokemonRepository;
     }
 
     public function getShow(string $trainerPokemonId)
@@ -27,7 +23,7 @@ class ProfilePokemonController extends Controller
         if($trainerPokemon['trainer_id'] != Auth::User()->id)
             return redirect()->route('myPokemonsView');
 
-        $payload = $this->pokemonRepository->formatDataToShowPokemon($trainerPokemon->pokemon->name);
+        $payload = $this->pokemonService->formatDataToShowPokemon($trainerPokemon->pokemon->name);
 
         return view('showPokemon', compact(['payload', 'trainerPokemon']));
     }

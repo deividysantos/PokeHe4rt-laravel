@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Contracts;
 
 interface IPokemonRepository
 {
@@ -8,5 +8,4 @@ interface IPokemonRepository
     function create(array $payload);
     function existByName(string $pokemonName);
     function getByName(string $pokemonName);
-    function createIfPokemonNotExist(string $pokemonName);
 }

@@ -32,7 +32,14 @@ class RegisteredUserRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'region' => ['required', 'string'],
-            'age' => ['required', 'numeric']
+            'age' => ['required', 'numeric', 'min:1']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'age.min' => 'Age must be valid!',
         ];
     }
 
@@ -51,7 +58,9 @@ class RegisteredUserRequest extends FormRequest
 
     public function trainerAlreadyExistsByRegionAndName($region, $name):bool
     {
-        $trainer = Trainer::where('name', $name)->get()->first();
+        $trainer = Trainer::where('name', $name)
+            ->where('region', $region)
+            ->first();
 
         if($trainer)
         {

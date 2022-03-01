@@ -7,7 +7,7 @@
         <form class="flex flex-col flex-wrap" action="{{route('capturePokemon')}}" method="POST">
             @csrf
             <x-label>Name</x-label>
-            <x-input name="namePokemon" type="text" required/>
+            <x-input name="pokemonName" type="text" required/>
 
             <x-button class=" mt-5 w px-4">
                 Capture

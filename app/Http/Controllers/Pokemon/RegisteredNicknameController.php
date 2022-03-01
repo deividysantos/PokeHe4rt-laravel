@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Pokemon;
 
-use App\Repositories\ITrainerPokemonRepository;
-use App\Repositories\PokemonRepository;
+use App\Repositories\Contracts\ITrainerPokemonRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class RegisteredNicknameController extends Controller
 {
