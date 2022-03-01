@@ -6,5 +6,5 @@ interface IPokemonService
 {
     function getDataPokemon(string $namePokemon):mixed;
     function formatDataToShowPokemon(string $namePokemon):array;
-    function createIfPokemonNotExist(string $namePokemon):bool;
+    function create(string $namePokemon):bool;
 }

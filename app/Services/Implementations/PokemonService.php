@@ -19,14 +19,17 @@ class PokemonService implements IPokemonService
     {
         $urlPokeApi = 'https://pokeapi.co/api/v2/pokemon/';
 
-        $url = $urlPokeApi . $namePokemon;
+        $url = $urlPokeApi . strtolower($namePokemon);
 
         $response = Http::get($url);
 
         if($response->ok())
             return $response->json();
 
-        throw new PokemonNameNotExist('The pokemon "'. $namePokemon . '" not exist!');
+        if($response->status() == 404)
+            throw new PokemonNameNotExist('The pokemon "'. $namePokemon . '" not exist!');
+
+        return false;
     }
 
     public function formatDataToShowPokemon(string $pokemonName):array
@@ -47,7 +50,7 @@ class PokemonService implements IPokemonService
         ];
     }
 
-    public function createIfPokemonNotExist(string $pokemonName): bool
+    public function create(string $pokemonName): bool
     {
         $pokemonName = strtolower($pokemonName);
 
