@@ -11,7 +11,7 @@
     @if(Auth::user()->trainerPokemon->count())
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg pb-8 border-b border-gray-200">
+                <div class="bg-white shadow-sm sm:rounded-lg pb-8">
                     <div class="p-6 pb-24 bg-white grid grid-cols-4">
 
                         @foreach(Auth::user()->trainerPokemon as $trainerPokemon)
