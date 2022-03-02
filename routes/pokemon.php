@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Pokemon\CapturedPokemonController;
+use App\Http\Controllers\Pokemon\CapturePokemonController;
 use App\Http\Controllers\Pokemon\DropPokemonController;
 use App\Http\Controllers\Pokemon\ProfilePokemonController;
 use App\Http\Controllers\Pokemon\RegisterNicknameController;
@@ -16,10 +16,9 @@ Route::get('pokemon/show/{trainerPokemonId}', [ProfilePokemonController::class, 
     ->where('trainerPokemonId', '^[0-9]+')
     ->name('showPokemonView');
 
-Route::get('/capture', function (){
-    return view('capturePokemon');
-})
+Route::get('/capture/{paginate?}', [CapturePokemonController::class, 'getCapturePokemon'])
     ->middleware(['auth'])
+    ->where('paginate', '^[0-9]+')
     ->name('capturePokemonView');
 
 Route::get('/dropPokemon/{trainerPokemonId}', [DropPokemonController::class, 'deleteDropPokemon'])
@@ -27,7 +26,7 @@ Route::get('/dropPokemon/{trainerPokemonId}', [DropPokemonController::class, 'de
     ->where('trainerPokemonId', '^[0-9]+')
     ->name('dropPokemon');
 
-Route::post('/capturePokemon', [CapturedPokemonController::class, 'postCapturePokemon'])
+Route::post('/capturePokemon', [CapturePokemonController::class, 'postCapturePokemon'])
     ->middleware(['auth'])
     ->name('capturePokemon');
 

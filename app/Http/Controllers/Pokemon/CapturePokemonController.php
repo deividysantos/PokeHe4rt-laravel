@@ -10,7 +10,7 @@ use App\Repositories\Contracts\ITrainerPokemonRepository;
 use App\Services\Contract\IPokemonService;
 use Illuminate\Support\Facades\Auth;
 
-class CapturedPokemonController extends Controller
+class CapturePokemonController extends Controller
 {
     public function __construct(
         private IPokemonService $pokemonService,
@@ -18,6 +18,13 @@ class CapturedPokemonController extends Controller
         private ITrainerPokemonRepository $trainerPokemonRepository
     )
     {
+    }
+
+    public function getCapturePokemon($paginate = 1)
+    {
+        $pokemons = $this->pokemonRepository->getPaginate($paginate);
+
+        return view('capturePokemon', compact(['pokemons', 'paginate']));
     }
 
     public function postCapturePokemon(CapturedPokemonRequest $request)

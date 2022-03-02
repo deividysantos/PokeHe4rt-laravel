@@ -8,4 +8,5 @@ interface IPokemonRepository
     function create(array $payload);
     function existByName(string $pokemonName);
     function getByName(string $pokemonName);
+    function getPaginate(int $paginate);
 }

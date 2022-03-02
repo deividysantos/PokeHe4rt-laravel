@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
 
-        <a href="{{route('capturePokemonView')}}">
+        <a href="{{route('capturePokemonView', 1)}}">
             <x-button>
                 Capture a new pokemon
             </x-button>
