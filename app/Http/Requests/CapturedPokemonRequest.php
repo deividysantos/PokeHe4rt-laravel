@@ -34,7 +34,7 @@ class CapturedPokemonRequest extends FormRequest
     public function rules():array
     {
         return [
-            'pokemonName' => ['required', 'max:55']
+            'pokemonName' => ['required', 'max:55', 'string']
         ];
     }
 
@@ -43,6 +43,11 @@ class CapturedPokemonRequest extends FormRequest
         $validator->after(function($validator) {
 
             try {
+                $pokemonName = $validator->getData()['pokemonName'];
+
+                if(is_numeric($pokemonName))
+                    throw new PokemonNameNotExist('The pokemon "'. $pokemonName . '" not exist!');
+
                 $this->pokemonService->getDataPokemon($validator->getData()['pokemonName']);
             }catch (PokemonNameNotExist $e)
             {

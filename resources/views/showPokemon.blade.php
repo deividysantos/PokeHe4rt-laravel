@@ -23,33 +23,44 @@
                 </div>
 
                 <img class="mx-auto w-40 h-40" src="{{$payload['image_url']}}" alt="{{$payload['name']}}">
-                <div class="flex flex-row justify-evenly text-left">
-                    <div class="">
-                        <h3>Types: </h3>
-                        @foreach($payload['types'] as $type)
-                            <p class="capitalize">{{$type}}</p>
-                        @endforeach
+                <div class="flex flex-row justify-evenly text-left flex-wrap">
+
+                    <div class="bg-gray-100 rounded-lg w-40 mt-4 ml-2">
+                        <h3 class="text-center bg-indigo-300 rounded-lg py-2">Types</h3>
+                            <div class="p-2">
+                                @foreach($payload['types'] as $type)
+                                    <p class="capitalize">{{$type}}</p>
+                                @endforeach
+                            </div>
                     </div>
-                    <div>
-                        <p>Height: {{$payload['height']}}</p>
-                        <p>Weight: {{$payload['weight']}}</p>
-                    </div>
-                    <div>
-                        <h3>Abilities: </h3>
-                        <div>
+
+                    <div class="bg-gray-100 rounded-lg w-40 mt-4 ml-2">
+                        <h3 class="text-center bg-indigo-300 rounded-lg py-2">Abilities</h3>
+                        <div class="p-2">
                             @foreach($payload['abilities'] as $ability)
-                                <p class="capitalize ml-3">{{$ability}}</p>
+                                <p class="capitalize">{{$ability}}</p>
                             @endforeach
                         </div>
                     </div>
-                    <div>
-                        <h3>Stats:</h3>
-                        <div>
+
+                    <div class="bg-gray-100 rounded-lg w-40 mt-4 ml-2">
+                        <h3 class="text-center bg-indigo-300 rounded-lg py-2">Atributes</h3>
+                        <div class="p-2">
+                            <p>Height: {{$payload['height']}}</p>
+                            <p>Weight: {{$payload['weight']}}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="bg-gray-100 rounded-lg w-40 mt-4 ml-2">
+                        <h3 class="text-center bg-indigo-300 rounded-lg py-2">Satus</h3>
+                        <div class="p-2">
                             @foreach($payload['stats'] as $stat => $value)
-                                <p class="capitalize ml-3">{{$stat}}: {{$value}}</p>
+                                <p class="capitalize">{{$stat}}: {{$value}}</p>
                             @endforeach
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

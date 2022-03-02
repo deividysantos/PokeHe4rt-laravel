@@ -38,4 +38,15 @@ class PokemonRepositoryEloquent implements IPokemonRepository
             ->get()
             ->first();
     }
+
+    public function getPaginate(int $paginate)
+    {
+        $paginate = $paginate == 1 ? 0 : ($paginate-1) * 18;
+
+        return $this->model
+            ->skip($paginate)
+            ->take(18)
+            ->orderBy('id')
+            ->get();
+    }
 }
