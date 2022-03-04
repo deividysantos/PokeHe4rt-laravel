@@ -3,7 +3,7 @@
         Capture a pokemon
     </x-slot>
 
-    <div class=" max-w-md mx-auto mt-6 px-6 py-4">
+    <div id="pokemonName" class="max-w-md mx-auto mt-6 px-6 py-4">
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <form class="flex flex-col flex-wrap" action="{{route('capturePokemon')}}" method="POST">
             @csrf
@@ -31,16 +31,18 @@
         @endforeach
     </div>
 
-    <div class="flex flex-row mx-auto w-8 mt-4">
+    <div class="flex flex-row mx-auto w-8 mt-4 pb-8">
         <div>
             <a
-                class="px-4 mr-4 {{$paginate == 1 ? 'bg-gray-200' : 'bg-white'}}" href="{{ $paginate != 1 ? route('capturePokemonView', $paginate - 1) : ''}}"> < </a>
+                class="px-4 mr-4 {{$paginate == 1 ? 'bg-gray-200' : 'bg-white'}}" href="{{ $paginate != 1 ? route('capturePokemonView', $paginate - 1) : ''}}">
+                <
+            </a>
         </div>
 
         {{$paginate}}
 
-        <div class="px-4 ml-4 bg-white">
-            <a href="{{route('capturePokemonView', $paginate + 1)}}"> > </a>
+        <div>
+            <a class="px-4 ml-4 bg-white" href="{{route('capturePokemonView', $paginate + 1)}}"> > </a>
         </div>
     </div>
 
