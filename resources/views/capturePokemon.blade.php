@@ -18,13 +18,12 @@
 
     <div class="max-w-max mx-auto bg-white rounded grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 shadow-lg">
         @foreach($pokemons as $pokemon)
-            <div class="flex flex-col bg-gray-50 flex-wrap items-center m-4 shadow-lg shadow-indigo-200/40">
+            <div class="flex flex-col flex-wrap
+            rounded items-center m-4 duration-100 shadow-lg hover:shadow-gray-400">
                 <button class="capitalize" onclick="copyPokemonName('{{$pokemon->name}}')">
-                    <img class="w-32 h-32" src="{{$pokemon->image_url}}" alt="{{$pokemon->name}}">
+                    <img class="w-40 h-40 p-4 duration-200 hover:p-0" src="{{$pokemon->image_url}}" alt="{{$pokemon->name}}">
 
-                    <div class="flex flex-row flex-wrap justify-center">
-                        <p>{{$pokemon->name}}</p>
-                    </div>
+                    <p class="m-auto ">{{$pokemon->name}}</p>
                 </button>
             </div>
         @endforeach
@@ -32,17 +31,18 @@
 
     <div class="flex flex-row mx-auto w-8 mt-4 pb-8">
         <div>
-            <a
-                class="px-4 mr-4 {{$paginate == 1 ? 'bg-gray-200' : 'bg-white'}}"
-                href="{{ $paginate != 1 ? route('capturePokemonView', $paginate - 1) : ''}}">
-                <
+            <a href="{{ $paginate != 1 ? route('capturePokemonView', $paginate - 1) : ''}}">
+                <x-button class="{{$paginate == 1 ? 'bg-gray-300 hover:bg-gray-300' : ''}}"> < </x-button>
             </a>
         </div>
 
-        {{$paginate}}
+        <div class="px-4 py-1 bg-gray-100">
+            {{$paginate}}
+        </div>
+
 
         <div>
-            <a class="px-4 ml-4 bg-white" href="{{route('capturePokemonView', $paginate + 1)}}"> > </a>
+            <a href="{{route('capturePokemonView', $paginate + 1)}}"> <x-button> > </x-button> </a>
         </div>
     </div>
 
