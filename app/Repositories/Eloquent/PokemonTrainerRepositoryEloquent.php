@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\TrainerPokemon;
+use App\Models\PokemonTrainer;
 use App\Repositories\Contracts\ITrainerPokemonRepository;
 
-class TrainerPokemonRepositoryEloquent implements ITrainerPokemonRepository
+class PokemonTrainerRepositoryEloquent implements ITrainerPokemonRepository
 {
     public function __construct(
-        private TrainerPokemon $model)
+        private PokemonTrainer $model)
     {
     }
 
