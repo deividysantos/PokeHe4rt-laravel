@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LiveStream\HomeLiveStreamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function (){
     return view('home');
 })->name('site.home');
+
+Route::get('lives', [HomeLiveStreamController::class, 'home'])
+    ->name('HomeLiveStream');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/pokemon.php';

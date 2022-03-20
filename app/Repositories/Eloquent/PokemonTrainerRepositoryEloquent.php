@@ -3,45 +3,45 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\PokemonTrainer;
-use App\Repositories\Contracts\ITrainerPokemonRepository;
+use App\Repositories\Contracts\IPokemonTrainerRepository;
 
-class PokemonTrainerRepositoryEloquent implements ITrainerPokemonRepository
+class PokemonTrainerRepositoryEloquent implements IPokemonTrainerRepository
 {
     public function __construct(
         private PokemonTrainer $model)
     {
     }
 
-    public function create(array $trainerPokemonData):bool
+    public function create(array $pokemonTrainerData):bool
     {
-        echo gettype($this->model->create($trainerPokemonData));
+        echo gettype($this->model->create($pokemonTrainerData));
         return true;
     }
 
-    public function dropPokemon(int $trainerPokemonId):bool
+    public function dropPokemon(int $pokemonTrainerId):bool
     {
-        $trainerPokemon = $this->model->find($trainerPokemonId);
+        $pokemonTrainer = $this->model->find($pokemonTrainerId);
 
-        if($trainerPokemon)
-            return $trainerPokemon->delete();
+        if($pokemonTrainer)
+            return $pokemonTrainer->delete();
 
         return false;
     }
 
-    public function getById(string $trainerPokemonId)
+    public function getById(string $pokemonTrainerId)
     {
-        return $this->model->find($trainerPokemonId);
+        return $this->model->find($pokemonTrainerId);
     }
 
-    public function editNicknamePokemon(string $trainerPokemonId, string $nicknamePokemon)
+    public function editNicknamePokemon(string $pokemonTrainerId, string $nicknamePokemon)
     {
-        $trainerPokemon = $this->model->find($trainerPokemonId);
+        $pokemonTrainer = $this->model->find($pokemonTrainerId);
 
-        if(!$trainerPokemon)
+        if(!$pokemonTrainer)
             return false;
 
-        $trainerPokemon->nickName = $nicknamePokemon;
+        $pokemonTrainer->nickName = $nicknamePokemon;
 
-        return $trainerPokemon->save();
+        return $pokemonTrainer->save();
     }
 }

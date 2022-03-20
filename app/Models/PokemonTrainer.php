@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TrainerPokemon extends Model
+class PokemonTrainer extends Model
 {
-    protected $table = 'trainer_pokemon';
+    protected $table = 'pokemon_trainer';
 
     protected $fillable = [
         'id',
@@ -26,16 +26,3 @@ class TrainerPokemon extends Model
         return $this->belongsTo(Trainer::class);
     }
 }
-
-/*
- * trainer
- *      belongsToMany TrainerPokemon
- *
- * trainerPokemon
- *      belongsTo Trainer
- *      belongsTo Pokemon
- *
- * pokemon
- *      belongsToMany TrainerPokemon
- *
- * */

@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers\Pokemon;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\Contracts\ITrainerPokemonRepository;
 use App\Services\Contract\IPokemonService;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Models\PokemonTrainer;
 
 class ProfilePokemonController extends Controller
 {
     public function __construct(
         private IPokemonService $pokemonService,
-        private ITrainerPokemonRepository $trainerPokemonRepository,
     )
     {
     }
 
-    public function getShow(string $trainerPokemonId)
+    public function getShow(PokemonTrainer $pokemonTrainer)
     {
-        $trainerPokemon = $this->trainerPokemonRepository->getById($trainerPokemonId);
-
-        if($trainerPokemon['trainer_id'] != Auth::User()->id)
+        if(!$this->authorize('pokemonsBelongsToTrainer', $pokemonTrainer))
             return redirect()->route('myPokemonsView');
 
-        $payload = $this->pokemonService->formatDataToShowPokemon($trainerPokemon->pokemon->name);
+        $payload = $this->pokemonService->formatDataToShowPokemon($pokemonTrainer->pokemon->name);
 
-        return view('showPokemon', compact(['payload', 'trainerPokemon']));
+        return view('showPokemon', compact(['payload', 'pokemonTrainer']));
     }
 }

@@ -14,8 +14,8 @@ class Pokemon extends Model
         'image_url',
     ];
 
-    public function trainerPokemon()
+    public function pokemonTrainer()
     {
-        return $this->hasMany(TrainerPokemon::class);
+        return $this->hasMany(PokemonTrainer::class);
     }
 }

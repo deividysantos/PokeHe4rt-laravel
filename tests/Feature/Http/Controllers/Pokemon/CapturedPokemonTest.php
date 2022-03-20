@@ -2,22 +2,21 @@
 
 namespace Tests\Feature\Http\Controllers\Pokemon;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\Pokemon;
 use App\Models\Trainer;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class TestCapturedPokemon extends TestCase
+class CapturedPokemonTest extends TestCase
 {
-    use DatabaseMigrations;
-
-    public function testShouldBeCapturedWhenPokemonNameIsValid()
+    public function test_should_be_able_capture_a_pokemon()
     {
-        $pokemonNameValid = 'ditto';
-        $trainer = Trainer::Factory()->create();
+        $user = User::factory()->create();
+        $this->actingAs($user);
 
-        $this->actingAs($trainer);
-        $response = $this->post(route('capturePokemon', $pokemonNameValid));
+        $namePokemon = 'ditto';
 
-        var_dump($response);
+        //$this->post(Route('capturePokemon'))
     }
 }

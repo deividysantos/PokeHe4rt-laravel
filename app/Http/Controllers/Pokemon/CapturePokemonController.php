@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Pokemon;
 
-use App\Exceptions\PokemonNameNotExist;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CapturedPokemonRequest;
 use App\Repositories\Contracts\IPokemonRepository;
-use App\Repositories\Contracts\ITrainerPokemonRepository;
+use App\Repositories\Contracts\IPokemonTrainerRepository;
 use App\Services\Contract\IPokemonService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class CapturePokemonController extends Controller
@@ -15,21 +16,21 @@ class CapturePokemonController extends Controller
     public function __construct(
         private IPokemonService $pokemonService,
         private IPokemonRepository $pokemonRepository,
-        private ITrainerPokemonRepository $trainerPokemonRepository
+        private IPokemonTrainerRepository $pokemonTrainerRepository
     )
     {
     }
 
-    public function getCapturePokemon($paginate = 1)
+    public function getCapturePokemon($paginate = 1): View
     {
         $pokemons = $this->pokemonRepository->getPaginate($paginate);
 
         return view('capturePokemon', compact(['pokemons', 'paginate']));
     }
 
-    public function postCapturePokemon(CapturedPokemonRequest $request)
+    public function postCapturePokemon(CapturedPokemonRequest $request): RedirectResponse
     {
-        $this->pokemonService->create($request['pokemonName']);
+        $this->pokemonService->createByName($request['pokemonName']);
 
         $pokemon = $this->pokemonRepository->getByName($request['pokemonName']);
 
@@ -39,7 +40,7 @@ class CapturePokemonController extends Controller
             'pokemon_id' => $pokemon->id
         ];
 
-        $this->trainerPokemonRepository->create($payload);
+        $this->pokemonTrainerRepository->create($payload);
 
         return redirect()->route('myPokemonsView');
     }

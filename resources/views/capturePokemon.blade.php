@@ -19,7 +19,7 @@
     <div class="max-w-max mx-auto bg-white rounded grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 shadow-lg">
         @foreach($pokemons as $pokemon)
             <div class="flex flex-col flex-wrap
-            rounded items-center m-4 duration-100 shadow-lg hover:shadow-gray-400">
+            rounded items-center m-4 duration-100 hover:shadow-gray-400">
                 <button class="capitalize" onclick="copyPokemonName('{{$pokemon->name}}')">
                     <img class="w-40 h-40 p-4 duration-200 hover:p-0" src="{{$pokemon->image_url}}" alt="{{$pokemon->name}}">
 
