@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
-interface ITrainerPokemonRepository
+interface IPokemonTrainerRepository
 {
     function create(array $payload):bool;
     function dropPokemon(int $trainerPokemonId):bool;

@@ -48,7 +48,7 @@ class CapturedPokemonRequest extends FormRequest
                 if(is_numeric($pokemonName))
                     throw new PokemonNameNotExist('The pokemon "'. $pokemonName . '" not exist!');
 
-                $this->pokemonService->getDataPokemon($validator->getData()['pokemonName']);
+                $this->pokemonService->getDataPokemonByName($validator->getData()['pokemonName']);
             }catch (PokemonNameNotExist $e)
             {
                 $validator

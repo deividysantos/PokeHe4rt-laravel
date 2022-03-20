@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Pokemon;
 
 use App\Http\Requests\RegisterNicknameRequest;
-use App\Repositories\Contracts\ITrainerPokemonRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Contracts\IPokemonTrainerRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 
 class RegisterNicknameController extends Controller
 {
-    private ITrainerPokemonRepository $trainerPokemonRepository;
 
-    public function __construct(ITrainerPokemonRepository $trainerPokemonRepository)
+    public function __construct(
+        private IPokemonTrainerRepository $pokemonTrainerRepository
+    )
     {
-        $this->trainerPokemonRepository = $trainerPokemonRepository;
     }
 
-    public function postNewNickname(RegisterNicknameRequest $request)
+    public function postNewNickname(RegisterNicknameRequest $request): RedirectResponse
     {
-        $this->trainerPokemonRepository->editNicknamePokemon($request['trainerPokemonId'], $request['nicknamePokemon']);
+        $this->pokemonTrainerRepository->editNicknamePokemon($request['pokemonTrainerId'], $request['nicknamePokemon']);
 
         return redirect()->route('myPokemonsView');
     }

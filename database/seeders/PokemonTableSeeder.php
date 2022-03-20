@@ -20,9 +20,15 @@ class PokemonTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1; $i < 200; $i++)
+        for($i = 366; $i <= 476; $i++)
         {
-            $this->pokemonService->create($i);
+            echo $i . ' ';
+
+            if(!$this->pokemonService->createBabyPokemon($i))
+            {
+                sleep(2);
+                $i = $i - 1;
+            }
         }
     }
 }

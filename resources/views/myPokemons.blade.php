@@ -8,24 +8,24 @@
         </a>
     </x-slot>
 
-    @if(Auth::user()->trainerPokemon->count())
+    @if(Auth::user()->pokemonTrainer->count())
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white shadow-sm sm:rounded-lg pb-8">
                     <div class="p-6 pb-24 bg-white grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6">
 
-                        @foreach(Auth::user()->trainerPokemon as $key => $trainerPokemon)
+                        @foreach(Auth::user()->pokemonTrainer as $key => $pokemonTrainer)
 
                             <div class="flex flex-col flex-wrap capitalize items-center ml-4 mt-4">
 
-                                <img class="w-32 h-32" src="{{$trainerPokemon->pokemon->image_url}}" alt="{{$trainerPokemon->pokemon->name}}">
+                                <img class="w-32 h-32" src="{{$pokemonTrainer->pokemon->image_url}}" alt="{{$pokemonTrainer->pokemon->name}}">
 
                                 <div class="flex flex-row flex-wrap justify-center">
 
-                                    @if($trainerPokemon->nickName == "")
-                                        <p>{{$trainerPokemon->pokemon->name}}</p>
+                                    @if($pokemonTrainer->nickName == "")
+                                        <p>{{$pokemonTrainer->pokemon->name}}</p>
                                     @else
-                                        <p>{{$trainerPokemon->nickName}}</p>
+                                        <p>{{$pokemonTrainer->nickName}}</p>
                                     @endif
 
                                     <div class="sm:flex sm:items-center">
@@ -38,13 +38,13 @@
 
                                             <x-slot name="content">
                                                 <div class="flex flex-row justify-evenly">
-                                                    <a class="hover:border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('showPokemonView',$trainerPokemon->id)}}">
+                                                    <a class="hover:border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('showPokemonView',$pokemonTrainer->id)}}">
                                                         <div class="cursor-pointer">
                                                             <x-iconpark-previewopen-o class="ml-3 w-5 h-5"/>
                                                             Show
                                                         </div>
                                                     </a>
-                                                    <a class="border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('dropPokemon',[$trainerPokemon->id])}}">
+                                                    <a class="border-b-2 border-transparent hover:border-indigo-600 p-1" href="{{route('dropPokemon',[$pokemonTrainer->id])}}">
                                                         <div class="cursor-pointer">
                                                             <x-iconpark-bye-o class="ml-2 w-5 h-5"/>
                                                             Drop

@@ -4,7 +4,8 @@ namespace App\Services\Contract;
 
 interface IPokemonService
 {
-    function getDataPokemon(string $namePokemon):mixed;
+    function getDataPokemonByName(string $namePokemon):mixed;
+    function createBabyPokemon(int $id):mixed;
     function formatDataToShowPokemon(string $namePokemon):array;
-    function create(string $namePokemon):bool;
+    function createByName(string $namePokemon):bool;
 }

@@ -8,16 +8,16 @@
                         @csrf
                         <div>
                             <x-label for="nickname">Nickname</x-label>
-                            @if($trainerPokemon->nickName != '')
-                                <x-input id="nickname" name="nicknamePokemon" type="text" value="{{$trainerPokemon->nickName}}"/>
+                            @if($pokemonTrainer->nickName != '')
+                                <x-input id="nickname" name="nicknamePokemon" type="text" value="{{$pokemonTrainer->nickName}}"/>
                             @else
                                 <x-input id="nickname" name="nicknamePokemon" type="text" value="{{ucfirst($payload['name'])}}"/>
                             @endif
 
-                            <input type="hidden" name="trainerPokemonId" value="{{$trainerPokemon->id}}">
+                            <input type="hidden" name="pokemonTrainerId" value="{{$pokemonTrainer->id}}">
                         </div>
-                        <div class="ml-2 mt-6">
-                            <button class="w-8 h-8" onclick="submit()"><x-iconpark-saveone-o/></button>
+                        <div class="ml-2 mt-4 pt-2 px-2">
+                            <button class="w-8 h-8 bg-indigo-100 hover:bg-indigo-200 rounded" onclick="submit()"><x-iconpark-saveone-o/></button>
                         </div>
                     </form>
                 </div>
@@ -25,8 +25,8 @@
                 <img class="mx-auto w-40 h-40" src="{{$payload['image_url']}}" alt="{{$payload['name']}}">
                 <div class="flex flex-row justify-evenly text-left flex-wrap">
 
-                    <div class="bg-gray-100 rounded-lg w-40 mt-4 ml-2">
-                        <h3 class="text-center bg-indigo-300 rounded-lg py-2">Types</h3>
+                    <div class="bg-gray-300 rounded-lg w-40 mt-4 ml-2">
+                        <h3 class="text-white text-center bg-indigo-500 rounded-lg py-2">Types</h3>
                             <div class="p-2">
                                 @foreach($payload['types'] as $type)
                                     <p class="capitalize">{{$type}}</p>
@@ -34,8 +34,8 @@
                             </div>
                     </div>
 
-                    <div class="bg-gray-100 rounded-lg w-40 mt-4 ml-2">
-                        <h3 class="text-center bg-indigo-300 rounded-lg py-2">Abilities</h3>
+                    <div class="bg-gray-300 rounded-lg w-40 mt-4 ml-2">
+                        <h3 class="text-white text-center bg-indigo-500 rounded-lg py-2">Abilities</h3>
                         <div class="p-2">
                             @foreach($payload['abilities'] as $ability)
                                 <p class="capitalize">{{$ability}}</p>
@@ -43,8 +43,8 @@
                         </div>
                     </div>
 
-                    <div class="bg-gray-100 rounded-lg w-40 mt-4 ml-2">
-                        <h3 class="text-center bg-indigo-300 rounded-lg py-2">Atributes</h3>
+                    <div class="bg-gray-300 rounded-lg w-40 mt-4 ml-2">
+                        <h3 class="text-white text-center bg-indigo-500 rounded-lg py-2">Atributes</h3>
                         <div class="p-2">
                             <p>Height: {{$payload['height']}}</p>
                             <p>Weight: {{$payload['weight']}}</p>
@@ -52,8 +52,8 @@
 
                     </div>
 
-                    <div class="bg-gray-100 rounded-lg w-40 mt-4 ml-2">
-                        <h3 class="text-center bg-indigo-300 rounded-lg py-2">Satus</h3>
+                    <div class="bg-gray-300 rounded-lg w-40 mt-4 ml-2">
+                        <h3 class="text-white text-center bg-indigo-500 rounded-lg py-2">Satus</h3>
                         <div class="p-2">
                             @foreach($payload['stats'] as $stat => $value)
                                 <p class="capitalize">{{$stat}}: {{$value}}</p>

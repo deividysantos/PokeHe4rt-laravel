@@ -2,26 +2,23 @@
 
 namespace App\Http\Controllers\Pokemon;
 
-use App\Repositories\Contracts\ITrainerPokemonRepository;
-use App\Repositories\Eloquent\TrainerPokemonRepositoryEloquent;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\Contracts\IPokemonTrainerRepository;
+use App\Http\Controllers\Controller;
+use App\Models\PokemonTrainer;
 
 class DropPokemonController extends Controller
 {
     public function __construct(
-        private ITrainerPokemonRepository $trainerPokemonRepository)
+        private IPokemonTrainerRepository $pokemonTrainerRepository)
     {
     }
 
-    public function deleteDropPokemon(string $trainerPokemonId)
+    public function deleteDropPokemon(PokemonTrainer $pokemonTrainer)
     {
-        $trainerPokemon = $this->trainerPokemonRepository->getById($trainerPokemonId);
-
-        if(!$trainerPokemon || $trainerPokemon['trainer_id'] !== Auth::User()->id)
+        if(!$this->authorize('pokemonsBelongsToTrainer', $pokemonTrainer))
             return redirect()->route('myPokemonsView');
 
-        $this->trainerPokemonRepository->dropPokemon($trainerPokemonId);
+        $this->pokemonTrainerRepository->dropPokemon($pokemonTrainer->id);
 
         return redirect()->route('myPokemonsView');
     }

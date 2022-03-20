@@ -20,7 +20,11 @@ class PokemonRepositoryEloquent implements IPokemonRepository
 
     public function create(array $pokemonData)
     {
-        return $this->model->create($pokemonData);
+        try {
+            return $this->model->create($pokemonData);
+        }catch (\Exception $e){
+            return false;
+        }
     }
 
     public function existByName(string $pokemonName): bool
