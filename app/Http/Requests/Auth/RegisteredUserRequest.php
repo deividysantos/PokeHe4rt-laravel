@@ -29,7 +29,7 @@ class RegisteredUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:trainers'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'region' => ['required', 'string'],
             'age' => ['required', 'numeric', 'min:1']
