@@ -20,7 +20,7 @@ class PokemonTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 366; $i <= 476; $i++)
+        for($i = 1; $i <= 476; $i++)
         {
             echo $i . ' ';
 
